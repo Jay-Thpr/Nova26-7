@@ -284,27 +284,44 @@ function CtaSection() {
 }
 
 function WorkPage() {
+  const featuredProjects = [
+    { ...projects[0], displayName: 'Medical Inventory System', client: '@Mending Kids', image: '/assets/figma/work/mending-kids.png' },
+    { ...projects[1], displayName: 'Foster Onboarding Tracker', client: '@Wags and Walks', image: '/assets/figma/work/wags-walks.png' },
+    { ...projects[2], displayName: 'Donation Allocation Portal', client: '@Center for Restorative Justice Works', image: '/assets/figma/work/crjw.png' },
+  ]
+
   return <AppShell>
-    <section className="page-hero work-hero">
-      <span className="spark spark-left">✦</span><span className="spark spark-right">✦</span>
-      <h1>Projects</h1>
-      <p>Take a look at some of the projects we’ve worked on. Whether they’re web development, mobile development, data science, or design, our solutions have been able to serve a wide variety of nonprofits.</p>
-    </section>
-    <section className="featured-projects section-shell">
-      {projects.map(project => <article className="featured-project" key={project.slug}>
-        <div className="laptop"><img src={project.screen} alt={`${project.name} screen`} /></div>
-        <h2>{project.name}</h2>
-        <strong>{project.label}</strong>
-        <p>{project.summary}</p>
-        <Link href={`/work/${project.slug}`}>Open case study <ArrowUpRight size={15}/></Link>
-      </article>)}
-    </section>
-    <section className="more-projects section-shell">
-      <h2>...and more!</h2>
-      <div className="project-list">
-        {moreProjects.map(([name, description]) => <Link className="project-row" href="/work" key={name}><strong>{name}</strong><span>{description}</span><ArrowUpRight size={16}/></Link>)}
-      </div>
-    </section>
+    <div className="work-page" data-node-id="345:778">
+      <img className="work-gradient-mesh" src="/assets/figma/work/gradient-mesh-4.png" alt="" />
+      <img className="work-wave" src="/assets/figma/work/project-wave.png" alt="" />
+      <img className="work-side-blob" src="/assets/figma/work/side-blob.png" alt="" />
+      <img className="work-star work-star-bottom-left" src="/assets/figma/work/star.png" alt="" />
+      <img className="work-star work-star-bottom-right" src="/assets/figma/work/star.png" alt="" />
+      <section className="work-content">
+        <header className="work-intro">
+          <span className="work-intro-spark work-intro-spark-left">✦</span>
+          <span className="work-intro-spark work-intro-spark-top">✦</span>
+          <span className="work-intro-spark work-intro-spark-right">✦</span>
+          <h1>Projects</h1>
+          <p>Take a look at some of the projects we’ve worked on! Whether they're web development, mobile development, data science, or design, our solutions have been able to serve a wide variety of nonprofits.</p>
+        </header>
+        <div className="work-featured-list">
+          {featuredProjects.map(project => <Link className="work-featured-project" href={`/work/${project.slug}`} key={project.slug}>
+            <div className="work-featured-image"><img src={project.image} alt={`${project.name} product preview`} /></div>
+            <div className="work-featured-copy">
+              <div><h2>{project.displayName}</h2><strong>{project.client}</strong></div>
+              <p>{project.summary}</p>
+            </div>
+          </Link>)}
+        </div>
+        <section className="work-more-projects">
+          <h2>...and more!</h2>
+          <div className="work-more-list">
+            {moreProjects.map(([name, description]) => <Link className="work-more-row" href="/work" key={name}><strong>{name}</strong><span>{description}</span><ArrowUpRight size={12} strokeWidth={1.5}/></Link>)}
+          </div>
+        </section>
+      </section>
+    </div>
   </AppShell>
 }
 
