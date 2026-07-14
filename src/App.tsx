@@ -133,6 +133,8 @@ const partnerLogos = [
   { name: 'Westside Food Bank', src: '/assets/figma/logos/wsfb.png' },
 ]
 const teamPhotos = ['/assets/team-1.png', '/assets/team-2.png', '/assets/team-3.png', '/assets/team-4.png']
+const landingPhotos = Array.from({ length: 15 }, (_, index) => `/assets/figma/landing/photo-${index + 1}.png`)
+const landingPartners = Array.from({ length: 16 }, (_, index) => `/assets/figma/landing/partner-${index + 1}.png`)
 
 function usePath() {
   const [path, setPath] = useState(window.location.pathname)
@@ -170,7 +172,9 @@ function Link({ href, children, className, onClick, ...props }: React.AnchorHTML
 }
 
 function Logo() {
-  return <Link className="logo" href="/" aria-label="Nova home"><img src="/assets/figma/landing/nav-logo.svg" alt="" /></Link>
+  return <Link className="logo" href="/" aria-label="Nova home">
+    <span className="logo-diamond"><span className="logo-art"><img src="/assets/figma/landing/nav-logo.svg" alt="" /></span></span>
+  </Link>
 }
 
 function Header() {
@@ -213,53 +217,68 @@ function AppShell({ children }: { children: React.ReactNode }) {
 
 function LandingPage() {
   return <AppShell>
-    <section className="hero">
-      <div className="stars" aria-hidden="true">✦　·　✧　　　　　　✦</div>
-      <img className="orbit orbit-one" src="/assets/orbit.png" alt="" />
-      <div className="hero-copy">
-        <h1>N<span className="star-o">✦</span>VA</h1>
-        <h2>Tech for Good</h2>
-        <p>A team of UCLA students creating high-impact technical solutions that empower nonprofits to better serve disadvantaged communities.</p>
-        <Link className="button button-gradient" href="/nonprofits">Work With Us <ArrowUpRight size={15}/></Link>
+    <div className="landing-page">
+      <div className="landing-decor" aria-hidden="true">
+        <img className="landing-decor-gallery-ribbon" src="/assets/figma/landing/gallery-ribbon-left.png" alt="" />
+        <img className="landing-decor-about-star" src="/assets/figma/landing/about-star-left.png" alt="" />
+        <img className="landing-decor-project-ring" src="/assets/figma/landing/project-ring-left.png" alt="" />
+        <img className="landing-decor-project-planet" src="/assets/figma/landing/project-planet-right.png" alt="" />
+        <img className="landing-decor-network-star-large" src="/assets/figma/landing/network-star-large.png" alt="" />
+        <img className="landing-decor-network-star-small" src="/assets/figma/landing/network-star-small.png" alt="" />
       </div>
-    </section>
-
-    <section className="photo-ribbon" id="team" aria-label="Nova team photos">
-      {[...teamPhotos, ...teamPhotos].map((src, index) => <img key={index} src={src} alt={index < 4 ? 'Nova student team' : ''} />)}
-    </section>
-
-    <section className="about section-shell" id="about">
-      <div className="about-card">
-        <div><span className="eyebrow">Our community</span><h2>Who We Are</h2></div>
-        <div>
-          <ul className="figma-bullets">
-            <li>Developers, designers, and innovators who love to solve problems.</li>
-            <li>Students dedicated to learning about and supporting under-resourced communities.</li>
-            <li>A team that strongly believes in making a difference.</li>
-          </ul>
-          <Link className="text-link" href="/students">Learn More <ArrowUpRight size={16}/></Link>
+      <section className="landing-hero">
+        <img className="landing-hero-star" src="/assets/figma/landing/hero-star.png" alt="" />
+        <div className="landing-ufo-flight" aria-hidden="true"><img className="landing-ufo" src="/assets/figma/landing/max-ufo.svg" alt="" /></div>
+        <div className="landing-hero-copy">
+          <img className="landing-wordmark" src="/assets/figma/landing/nova-wordmark.svg" alt="Nova" />
+          <h1>Tech for Good</h1>
+          <p>A team of UCLA students creating high-impact technical solutions that empower nonprofits to better serve disadvantaged communities.</p>
+          <Link className="button button-gradient" href="/nonprofits">Work With Us <ArrowUpRight size={15}/></Link>
         </div>
-      </div>
-      <img className="planet" src="/assets/planet-ring.png" alt="" />
-    </section>
+      </section>
 
-    <section className="photo-ribbon ribbon-two" aria-hidden="true">
-      {[...teamPhotos].reverse().concat(teamPhotos).map((src, index) => <img key={index} src={src} alt="" />)}
-    </section>
+      <section className="landing-gallery" id="team" aria-label="Nova team photos">
+        <div className="landing-photo-rows">
+          <PhotoStrip photos={landingPhotos.slice(0, 4)} widths={[342.56, 282.433, 385.38, 192.69]} />
+          <PhotoStrip photos={landingPhotos.slice(4, 8)} widths={[192.69, 342.56, 342.56, 192.69]} />
+        </div>
+        <div className="landing-about" id="about">
+          <div>
+            <h2>Who We Are</h2>
+            <p>⟡&nbsp; Developers, designers, and innovators who love to solve problems.<br />⟡&nbsp; Students dedicated to learning about and supporting under-resourced communities.<br />⟡&nbsp; A team that strongly believes in making a difference.</p>
+          </div>
+          <Link className="button button-outline" href="/students">Learn More <ArrowUpRight size={12}/></Link>
+          <img className="landing-about-planet" src="/assets/figma/landing/about-planet.png" alt="" />
+        </div>
+        <PhotoStrip className="landing-bottom-strip" photos={landingPhotos.slice(8, 15)} widths={[342.56, 192.69, 342.56, 192.69, 342.56, 192.69, 342.56]} />
+      </section>
 
     <ProjectsPreview />
     <NetworkSection />
     <CtaSection />
+    </div>
   </AppShell>
 }
 
+function PhotoStrip({ photos, widths, className = '' }: { photos: string[]; widths: number[]; className?: string }) {
+  const sequence = [...photos, ...photos]
+  return <div className={`landing-carousel ${className}`}>
+    <div className="landing-photo-track">{sequence.map((src, index) => <img key={`${src}-${index}`} src={src} style={{ width: widths[index % widths.length] ?? 342.56 }} alt={index < photos.length ? 'Nova team' : ''} />)}</div>
+  </div>
+}
+
 function ProjectsPreview() {
-  return <section className="projects section-shell" id="work">
-    <div className="section-heading"><span className="eyebrow">2025–2026</span><h2>Projects</h2><p>We partner with nonprofits across web development, mobile development, data science, and design.</p></div>
-    <div className="project-grid">
-      {projects.map(project => <ProjectCard project={project} key={project.slug} />)}
+  const landingProjectCopy = [
+    ['Medical Inventory System', '@Mending Kids', 'A web-based inventory management system that lets Mending Kids staff log, categorize, and track a medical supply’s journey from donation to deployment.'],
+    ['Foster Onboarding Tracker', '@Wags and Walks', 'A centralized foster management platform to streamline onboarding, communication, and resource accessibility for the Wags & Walks team.'],
+    ['Donation Allocation Portal', '@Center for Restorative Justice Works', 'A unified budgeting platform that automatically imports donation data and simplifies fund allocation, turning financial data into actionable insights.'],
+  ]
+  return <section className="landing-projects" id="work">
+    <div className="landing-section-intro"><h2>Projects</h2><p>We were founded on the belief that even small solutions have the potential to create a large impact. We put together small interdisciplinary teams and work closely with nonprofits to bring a product to life through ideation, design, and implementation.</p></div>
+    <div className="landing-project-list">
+      {landingProjectCopy.map(([name, client, summary], index) => <Link className="landing-project" href={`/work/${projects[index].slug}`} key={name}><img src={`/assets/figma/landing/project-${index + 1}.png`} alt="" /><div><h3>{name}</h3><strong>{client}</strong><p>{summary}</p></div></Link>)}
     </div>
-    <Link className="button button-outline" href="/work">View Projects <ArrowUpRight size={15}/></Link>
+    <Link className="button button-outline" href="/work">More Projects <ArrowUpRight size={12}/></Link>
   </section>
 }
 
@@ -273,14 +292,14 @@ function ProjectCard({ project }: { project: Project }) {
 }
 
 function NetworkSection() {
-  return <section className="network section-shell">
-    <div className="section-heading"><span className="eyebrow">Our partners</span><h2>Our Network</h2><p>Past and current partners who have trusted Nova to support mission-critical work.</p></div>
-    <div className="logo-panel">{partnerLogos.map(logo => <img key={logo.name} src={logo.src} alt={logo.name} />)}</div>
+  return <section className="landing-network">
+    <div className="landing-section-intro"><h2>Our Network</h2><p>We wouldn't be able to do what we love alone. We're grateful for these organizations who have advised us and given us a hand in better understanding the social sector. Interested in becoming a partner or advisor? <u>Let us know</u> — we'd love to talk with you!</p></div>
+    <div className="landing-partners">{landingPartners.map(src => <img key={src} src={src} alt="Nova partner" />)}</div>
   </section>
 }
 
 function CtaSection() {
-  return <section className="cta" id="nonprofits"><div><span className="eyebrow">Build with Nova</span><h2>Interested?</h2><p>Whether you’re a nonprofit with a technical challenge or a UCLA student looking to use your skills for good, we’d like to hear from you.</p><div className="cta-actions"><Link className="button button-solid" href="/nonprofits">Work With Us <ArrowUpRight size={15}/></Link><Link className="button button-outline" href="/students">Join Nova <ArrowUpRight size={15}/></Link></div></div></section>
+  return <section className="landing-cta" id="nonprofits"><h2>Interested?</h2><div className="cta-actions"><Link className="button button-outline" href="/nonprofits">Work With Us <ArrowUpRight size={12}/></Link><Link className="button button-outline" href="/students">Join Our Team <ArrowUpRight size={12}/></Link></div></section>
 }
 
 function WorkPage() {

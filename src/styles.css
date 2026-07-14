@@ -4,31 +4,32 @@
 * { box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 body { margin:0; overflow-x:hidden; }
+#root, #top { width:100vw; min-width:0; background:#fafcff; }
 a { color:inherit; text-decoration:none; }
 img { display:block; max-width:100%; }
-.header { position:absolute; z-index:20; top:40px; left:0; width:100%; padding:0 24px; }
-.nav { width:min(880px,100%); min-height:56px; margin:auto; display:flex; align-items:center; padding:4px 7px 4px 16px; border:1px solid var(--accent); border-radius:100px; background:rgba(250,252,255,.9); backdrop-filter:blur(12px); }
-.logo { width:47px; height:47px; flex:0 0 auto; border:1px solid var(--accent); border-radius:13px; display:grid; place-items:center; transform:rotate(45deg); overflow:hidden; background:white; }
-.logo img { width:47px; height:34px; max-width:none; transform:rotate(-45deg); }
-.nav-links { display:flex; align-items:center; gap:25px; margin-left:24px; width:100%; font-weight:500; color:var(--accent); }
+.header { position:absolute; z-index:20; top:24px; left:0; width:100%; padding:0 24px; }
+.nav { width:min(880px,100%); min-height:64px; margin:auto; display:flex; align-items:center; padding:8px 7px 8px 16px; border:1px solid #176bdf; border-radius:100px; background:#fafcff; }
+.logo { width:46.8px; height:46.8px; flex:0 0 auto; display:grid; place-items:center; }
+.logo-diamond { position:relative; display:block; width:33.092px; height:33.092px; overflow:hidden; border:1px solid #176bdf; border-radius:10px; background:#fafcff; transform:rotate(45deg); }
+.logo-art { position:absolute; top:-9.39px; left:-9.73px; display:grid; width:56.53px; height:56.53px; place-items:center; }
+.logo img { width:46.674px; height:33.272px; max-width:none; transform:rotate(-45deg); }
+.nav-links { display:flex; align-items:center; gap:24px; margin-left:24px; width:100%; font-weight:500; color:#176bdf; }
 .nav-links>a:not(.button) { white-space:nowrap; font-family:'Red Hat Text',sans-serif; font-size:20px; letter-spacing:-.03em; }
 .nav-links .button { margin-left:auto; }
-.menu-button { display:none; margin-left:auto; border:0; background:transparent; color:var(--accent); }
+.nav .button-solid { background:#176bdf; }
+.menu-button { display:none; margin-left:auto; border:0; background:transparent; color:#176bdf; }
 .button { display:inline-flex; align-items:center; justify-content:center; gap:8px; border-radius:999px; padding:12px 24px; font-weight:600; font-size:16px; transition:transform .2s,box-shadow .2s; }
 .button:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,88,161,.18); }
 .button-solid { color:white; background:var(--accent); }
 .button-gradient { color:white; background:linear-gradient(100deg,var(--blue),var(--light-pink)); }
 .button-outline { border:1px solid var(--accent); color:var(--accent); background:rgba(255,255,255,.75); }
-.hero { min-height:890px; position:relative; display:grid; place-items:center; padding:170px 24px 100px; background:radial-gradient(ellipse at 50% 44%,#fff8de 0 8%,#ffc9ee 16%,rgba(255,201,238,.78) 29%,transparent 46%),radial-gradient(circle at 91% 4%,#ff83ed 0,#aca1e9 18%,transparent 34%),radial-gradient(circle at 0% 6%,#1c82e7 0,#0077db 31%,#74b6ff 52%,transparent 66%),linear-gradient(180deg,#0077db 0%,#74b6ff 45%,#0077db 100%); overflow:hidden; }
-.hero:before { content:''; position:absolute; inset:-8% -6%; background:url('/assets/halo.svg') center top/cover no-repeat; opacity:.78; mix-blend-mode:soft-light; }
-.hero:after { content:''; position:absolute; inset:0; background-image:radial-gradient(white 1.4px,transparent 1.8px); background-size:83px 91px; opacity:.72; }
+.landing-canvas { position:relative; overflow:hidden; background:#fafcff url('/assets/figma/landing/gradient-halo-4.png') top center/100% auto no-repeat; }
+.hero { min-height:890px; position:relative; display:grid; place-items:center; padding:170px 24px 100px; overflow:hidden; }
 .hero-copy { position:relative; z-index:3; text-align:center; max-width:840px; }
 .hero h1,.hero h2,.section-heading h2,.about h2,.cta h2 { font-family:'Syncopate',sans-serif; text-transform:uppercase; margin:0; color:white; text-shadow:0 4px 4px var(--accent); letter-spacing:-.05em; }
 .hero h1 { font-size:clamp(86px,15vw,200px); line-height:.85; }.hero h2{font-size:clamp(28px,5.2vw,64px)}
 .star-o { font-size:.58em; display:inline-block; vertical-align:14%; }
 .hero-copy p { max-width:395px; margin:38px auto 28px; font-family:'Raleway',sans-serif; line-height:24px; color:#050505; }
-.stars { position:absolute; z-index:2; inset:135px 10% auto; color:white; font-size:38px; letter-spacing:10vw; text-shadow:0 3px 8px #288bdc; }
-.orbit { position:absolute; z-index:1; pointer-events:none; }.orbit-one{width:520px; left:-250px; bottom:-60px; transform:rotate(18deg)}
 .photo-ribbon { position:relative; z-index:5; width:max-content; display:flex; gap:16px; transform:translateY(-85px) translateX(-3vw); }
 .photo-ribbon img { width:210px; height:210px; object-fit:cover; border:5px solid white; border-radius:50%; box-shadow:0 8px 22px rgba(0,88,161,.22); }
 .section-shell { width:min(1040px,calc(100% - 40px)); margin:auto; }
@@ -193,4 +194,131 @@ footer { min-height:170px; padding:38px 5vw 22px; display:grid; grid-template-co
   .work-more-projects { margin-top:18px; }.work-more-projects h2 { font-size:29px; }
   .work-more-row { grid-template-columns:minmax(105px,30%) minmax(0,1fr) 12px; gap:12px; padding-bottom:14px; font-size:13px; line-height:19px; }
   .work-more-row + .work-more-row { padding-top:14px; }
+}
+
+/* Landing page: coordinates follow the 1280px Figma artboard. */
+.landing-page { position:relative; overflow:hidden; background-color:#fafcff; background-image:url('/assets/figma/landing/gradient-halo-4.png'),url('/assets/figma/landing/gradient-mesh-2.png'); background-position:top center,center 4222px; background-size:1280px 2873px,1280px 1937px; background-repeat:no-repeat,no-repeat; }
+.landing-decor { position:absolute; z-index:0; inset:0; pointer-events:none; }
+.landing-decor img { position:absolute; object-fit:contain; }
+.landing-decor-gallery-ribbon { top:1848px; left:-308px; width:622px; height:483px; }
+.landing-decor-about-star { top:1527px; left:0; width:346px; height:356px; }
+.landing-decor-project-ring { top:2636px; left:-496px; width:665px; height:822px; }
+.landing-decor-project-planet { top:3285px; left:1068px; width:543px; height:481px; }
+.landing-decor-network-star-large { top:4539px; left:-79px; width:241px; height:227px; }
+.landing-decor-network-star-small { top:4709px; left:2px; width:182px; height:178px; }
+.landing-page > section { position:relative; z-index:1; }
+.landing-hero { position:relative; height:896px; overflow:hidden; }
+.landing-hero-copy { position:absolute; top:207px; left:50%; display:flex; width:756px; flex-direction:column; align-items:center; transform:translateX(-50%); text-align:center; }
+.landing-wordmark { width:756px; height:171px; object-fit:contain; }
+.landing-hero-copy h1 { width:752px; margin:23px 0 0; font-family:'Syncopate',sans-serif; font-size:64px; line-height:55px; letter-spacing:-1.92px; text-transform:uppercase; color:#fff; text-shadow:0 4px 4px #176bdf; }
+.landing-hero-copy p { width:395px; margin:72px 0 32px; font-family:'Raleway',sans-serif; font-size:16px; line-height:24px; color:#050505; }
+.landing-hero-star { position:absolute; z-index:1; top:195px; left:-19px; width:401px; height:384px; pointer-events:none; }
+.landing-ufo-flight { position:absolute; z-index:3; top:224px; left:calc(50% + 276px); width:144px; height:135px; pointer-events:none; will-change:transform; }
+.landing-ufo { width:100%; height:100%; max-width:none; transform:rotate(-25deg); transform-origin:50% 50%; will-change:transform; }
+.landing-hero-copy { z-index:2; }
+.landing-gallery { height:1286px; }
+.landing-photo-rows { display:flex; flex-direction:column; gap:24px; padding:0 24px; }
+.landing-carousel { height:273px; overflow:hidden; padding:8px 0; }
+.landing-photo-track { display:flex; width:max-content; height:257px; gap:24px; animation:landing-photo-loop 38s linear infinite; }
+.landing-photo-track img { height:257px; flex:0 0 auto; border-radius:1000px; object-fit:cover; box-shadow:0 0 8px 2px rgba(255,255,255,.5); }
+.landing-carousel:hover .landing-photo-track { animation-play-state:paused; }
+.landing-photo-rows .landing-carousel:nth-child(2) .landing-photo-track { animation-direction:reverse; animation-duration:44s; }
+.landing-about { position:relative; display:flex; width:880px; min-height:263px; align-items:center; justify-content:space-between; margin:80px auto; padding:48px; border:1px solid rgba(23,107,223,.5); border-radius:20px; background:#fafcff; }
+.landing-about h2,.landing-section-intro h2,.landing-cta h2 { margin:0; font-family:'Syncopate',sans-serif; font-size:64px; line-height:1; letter-spacing:-1.92px; text-transform:uppercase; color:#176bdf; }
+.landing-about p { width:580px; margin:24px 0 0; font-family:'Raleway',sans-serif; font-size:16px; line-height:24px; color:#050505; }
+.landing-about .button { position:relative; z-index:2; font-family:'Raleway',sans-serif; font-weight:400; }
+.landing-about-planet { position:absolute; top:-190px; right:-120px; width:222px; height:222px; }
+.landing-bottom-strip { width:1232px; margin:0 auto; }
+.landing-projects { display:flex; height:1864px; flex-direction:column; align-items:center; padding-top:178px; }
+.landing-section-intro { width:882px; text-align:center; }
+.landing-section-intro p { max-width:882px; margin:32px auto 0; font-family:'Raleway',sans-serif; font-size:16px; line-height:24px; color:#050505; }
+.landing-project-list { display:flex; width:882px; flex-direction:column; gap:40px; margin-top:40px; }
+.landing-project { display:grid; min-height:360px; grid-template-columns:500px 358px; gap:24px; align-items:center; }
+.landing-project > img { width:500px; height:312px; object-fit:cover; }
+.landing-project > div { padding:16px; }
+.landing-project h3 { margin:0; font-family:'Syncopate',sans-serif; font-size:36px; line-height:37px; letter-spacing:-1.08px; text-transform:uppercase; color:#050505; }
+.landing-project strong { display:block; margin-top:8px; font-family:'Raleway',sans-serif; font-size:16px; line-height:24px; text-transform:uppercase; color:#050505; }
+.landing-project p { margin:8px 0 0; font-family:'Raleway',sans-serif; font-size:16px; line-height:24px; color:#050505; }
+.landing-projects > .button { margin-top:40px; font-family:'Raleway',sans-serif; font-weight:400; }
+.landing-network { display:flex; height:1775px; flex-direction:column; align-items:center; }
+.landing-network .landing-section-intro { padding-top:0; }
+.landing-partners { display:grid; width:882px; height:1269px; grid-template-columns:repeat(3,1fr); gap:24px 32px; margin-top:32px; padding:56px; border:1px solid rgba(23,107,223,.5); border-radius:8px; background:#fafcff; }
+.landing-partners img { width:100%; height:114px; object-fit:contain; }
+.landing-cta { display:flex; height:338px; flex-direction:column; align-items:center; padding-top:0; text-align:center; }
+.landing-cta h2 { font-size:64px; color:#fff; text-shadow:0 4px 4px #176bdf; }
+.landing-cta .cta-actions { display:flex; gap:48px; margin-top:48px; }
+.landing-cta .button { padding:12px 24px; border-color:#176bdf; font-family:'Raleway',sans-serif; font-weight:400; }
+
+@media(prefers-reduced-motion:no-preference) {
+  @media(min-width:821px) {
+    .landing-ufo-flight { animation:landing-ufo-route 15.6s linear infinite; }
+    .landing-ufo { animation:landing-ufo-attitude 15.6s linear infinite; }
+    @keyframes landing-ufo-route {
+      0%, 9% { transform:translate3d(0,0,0); }
+      13% { transform:translate3d(-235px,-22px,0); }
+      17%, 24% { transform:translate3d(-425px,4px,0); }
+      28% { transform:translate3d(-370px,-36px,0); }
+      32% { transform:translate3d(-286px,-43px,0); }
+      36% { transform:translate3d(-238px,4px,0); }
+      40% { transform:translate3d(-310px,35px,0); }
+      44%, 52% { transform:translate3d(-382px,1px,0); }
+      56% { transform:translate3d(-605px,-35px,0); }
+      60%, 68% { transform:translate3d(-667px,-12px,0); }
+      73% { transform:translate3d(-460px,25px,0); }
+      78% { transform:translate3d(-225px,-10px,0); }
+      83% { transform:translate3d(-54px,-5px,0); }
+      90%, 100% { transform:translate3d(0,0,0); }
+    }
+    @keyframes landing-ufo-attitude {
+      0%, 9%, 17%, 24%, 44%, 52%, 60%, 68%, 90%, 100% { transform:translateY(0) rotate(-25deg); }
+      13% { transform:translateY(-3px) rotate(-31deg); }
+      28% { transform:translateY(3px) rotate(-18deg); }
+      32% { transform:translateY(-4px) rotate(-14deg); }
+      36% { transform:translateY(2px) rotate(-26deg); }
+      40% { transform:translateY(-3px) rotate(-34deg); }
+      56% { transform:translateY(2px) rotate(-31deg); }
+      73% { transform:translateY(-3px) rotate(-19deg); }
+      78% { transform:translateY(2px) rotate(-29deg); }
+      83% { transform:translateY(-2px) rotate(-22deg); }
+    }
+  }
+  @keyframes landing-photo-loop { to { transform:translateX(-50%); } }
+}
+@media(prefers-reduced-motion:reduce) {
+  .landing-photo-track { animation:none; }
+}
+
+@media(min-width:1281px) {
+  .landing-page { width:1280px; margin:0 auto; zoom:calc(100vw / 1280px); }
+}
+
+@media(max-width:820px) {
+  .landing-page { background-size:cover, cover; background-position:top center, center bottom; }
+  .landing-decor { display:none; }
+  .landing-hero { height:760px; }
+  .landing-hero-copy { top:150px; width:100%; padding:0 20px; }
+  .landing-wordmark { width:min(756px,90vw); height:auto; }
+  .landing-hero-copy h1 { width:auto; font-size:clamp(28px,7vw,64px); line-height:1; }
+  .landing-hero-copy p { width:min(395px,90vw); margin-top:56px; }
+  .landing-hero-star { width:220px; height:auto; top:190px; left:-70px; }
+  .landing-ufo-flight { top:196px; right:8px; left:auto; width:96px; height:90px; }
+  .landing-gallery,.landing-projects,.landing-network,.landing-cta { height:auto; }
+  .landing-photo-rows { padding:0; }
+  .landing-carousel { width:100%; }
+  .landing-about,.landing-section-intro,.landing-project-list,.landing-partners { width:calc(100% - 32px); }
+  .landing-about { margin:48px auto; padding:28px; flex-direction:column; align-items:flex-start; gap:24px; }
+  .landing-about h2,.landing-section-intro h2,.landing-cta h2 { font-size:clamp(34px,9vw,64px); }
+  .landing-about p { width:auto; font-size:14px; line-height:21px; }
+  .landing-about-planet { width:120px; height:120px; top:-64px; right:-20px; }
+  .landing-bottom-strip { width:100%; margin-bottom:72px; }
+  .landing-projects { padding:80px 0; }
+  .landing-project-list { gap:48px; }
+  .landing-project { grid-template-columns:1fr; gap:8px; min-height:0; }
+  .landing-project > img { width:100%; height:auto; }
+  .landing-project h3 { font-size:27px; line-height:1.05; }
+  .landing-projects > .button { margin-top:36px; }
+  .landing-network { padding:72px 0; }
+  .landing-partners { height:auto; grid-template-columns:repeat(2,1fr); padding:28px; }
+  .landing-partners img { height:78px; }
+  .landing-cta { padding:72px 0; }
 }
