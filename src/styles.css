@@ -488,21 +488,12 @@ footer { height:172px; padding:35px 56px; display:grid; grid-template-columns:1f
 .project-mending-kids + .figma-case-study {
   min-height:0;
   padding-top:48px;
-  background:#fff;
+  background:
+    url('/assets/figma/details/mk-content-gradient.png') bottom center/1280px 2460px no-repeat,
+    linear-gradient(180deg,#fff 0%,#fff 43%,#f7d5f1 57%,#74b6ff 78%,#0077db 100%);
 }
 .project-mending-kids + .figma-case-study::before {
-  content:'';
-  position:absolute;
-  top:1800px;
-  left:50%;
-  width:1280px;
-  height:2459.5px;
-  inset-inline:auto;
-  bottom:auto;
-  background:url('/assets/figma/details/mk-content-gradient.png') center/1280px 2460px no-repeat;
-  opacity:1;
-  mix-blend-mode:normal;
-  transform:translateX(-50%);
+  display:none;
 }
 .project-mending-kids + .figma-case-study .figma-case-inner { gap:80px; }
 .project-mending-kids + .figma-case-study .figma-meta {
