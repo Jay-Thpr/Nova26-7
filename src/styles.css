@@ -489,7 +489,7 @@ footer { height:172px; padding:35px max(56px,calc((100% - 1168px)/2)); display:g
   min-height:0;
   padding-top:48px;
   background:
-    url('/assets/figma/details/mk-content-gradient.png') bottom center/1280px 2460px no-repeat,
+    url('/assets/figma/details/mk-content-gradient.png') bottom center/max(1280px,100%) 2460px no-repeat,
     linear-gradient(180deg,#fff 0%,#fff 43%,#f7d5f1 57%,#74b6ff 78%,#0077db 100%);
 }
 .project-mending-kids + .figma-case-study::before {
@@ -911,7 +911,9 @@ footer { height:172px; padding:35px max(56px,calc((100% - 1168px)/2)); display:g
   .project-crjw + .figma-case-study {
     min-height:3568px;
     padding-top:0;
-    background:#fff url('/assets/figma/details/mk-content-gradient.png') bottom center/1280px 2460px no-repeat;
+    background:
+      url('/assets/figma/details/mk-content-gradient.png') bottom center/max(1280px,100%) 2460px no-repeat,
+      linear-gradient(180deg,#fff 0%,#fff 43%,#f7d5f1 57%,#74b6ff 78%,#0077db 100%);
   }
   .project-crjw + .figma-case-study::before { display:none; }
   .project-crjw + .figma-case-study .figma-case-inner {
