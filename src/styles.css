@@ -743,8 +743,8 @@ footer { height:172px; padding:35px max(56px,calc((100% - 1168px)/2)); display:g
 .students-mesh-bottom { top:2801px; height:612px; }
 .students-sparkles-wide { top:75px; left:calc(50% - 608px); width:1221px; height:3510px; }
 .students-sparkles-right { top:132px; left:calc(50% + 474px); width:139px; height:1032px; }
-.students-soft-star { overflow:hidden; box-shadow:0 0 18.759px rgba(172,161,233,.75); }
-.students-soft-star img { position:absolute; top:0; left:0; width:176.27%; height:332.1%; max-width:none; }
+.students-soft-star { overflow:visible; }
+.students-soft-star img { position:absolute; top:0; left:0; width:176.27%; height:332.1%; max-width:none; filter:drop-shadow(0 0 18.759px rgba(172,161,233,.75)); }
 .students-soft-star-right { top:1441px; left:calc(50% + 511.56px); width:177.82px; height:175.34px; }
 .students-soft-star-bottom-left { top:3217px; left:calc(50% - 537.83px); width:180.47px; height:178.05px; }
 .students-page .page-hero { width:882px; min-height:267px; margin:auto; padding:168px 0 0; background:transparent; }
