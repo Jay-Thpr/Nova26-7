@@ -236,6 +236,8 @@ function LandingPage() {
   return <AppShell>
     <div className="landing-page">
       <div className="landing-decor" aria-hidden="true">
+        <img className="landing-decor-sparkles landing-decor-sparkles-top" src="/assets/figma/landing/sparkle-field.svg" alt="" />
+        <img className="landing-decor-sparkles landing-decor-sparkles-middle" src="/assets/figma/landing/sparkle-field-middle.svg" alt="" />
         <img className="landing-decor-gallery-ribbon" src="/assets/figma/landing/gallery-ribbon-left.png" alt="" />
         <img className="landing-decor-about-star" src="/assets/figma/landing/about-star-left.png" alt="" />
         <img className="landing-decor-project-ring" src="/assets/figma/landing/project-ring-left.png" alt="" />

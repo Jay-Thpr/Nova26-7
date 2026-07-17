@@ -660,6 +660,9 @@ footer { height:172px; padding:35px 56px; display:grid; grid-template-columns:1f
 .landing-page { position:relative; overflow:hidden; background-color:#fafcff; background-image:url('/assets/figma/landing/gradient-halo-4.png'),url('/assets/figma/landing/gradient-mesh-2.png'); background-position:top center,center 4222px; background-size:1280px 2873px,1280px 1937px; background-repeat:no-repeat,no-repeat; }
 .landing-decor { position:absolute; z-index:0; inset:0; pointer-events:none; }
 .landing-decor img { position:absolute; object-fit:contain; }
+.landing-decor-sparkles { width:1121px; height:2801px; }
+.landing-decor-sparkles-top { top:83.632px; left:83.957px; }
+.landing-decor-sparkles-middle { top:1652.632px; left:79.957px; }
 .landing-decor-gallery-ribbon { top:1848px; left:-308px; width:622px; height:483px; }
 .landing-decor-about-star { top:1527px; left:0; width:346px; height:356px; }
 .landing-decor-project-ring { top:2636px; left:-496px; width:665px; height:822px; }
