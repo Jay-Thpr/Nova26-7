@@ -1,4 +1,4 @@
-import { ArrowUpRight, Menu, X } from 'lucide-react'
+import { ArrowLeft, ArrowRight, ArrowUpRight, Menu, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 type Project = {
@@ -18,6 +18,7 @@ type Project = {
   solutionIntro: string
   solutions: { title: string; body: string }[]
   testimonial?: string
+  metrics?: { value: string; label: string }[]
   teamImages: string[]
 }
 
@@ -29,24 +30,25 @@ const projects: Project[] = [
     screen: '/assets/mk-screen.png',
     label: 'Dashboard',
     summary: 'A web-based inventory management system that lets MK staff log, categorize, and track medical supplies from donation to destination.',
-    figmaNode: '256:2618',
+    figmaNode: '874:11598',
     timeline: 'January 2026 - June 2026',
-    techStack: 'React, Next.js, TypeScript, Supabase, Vercel, HTML, CSS',
+    techStack: 'React, Next.js, TypeScript, Supabase, Vercel, HTML, CSS, Figma',
     teamMembers: [
       'Project Leads: Aditi Karthik, Akhilesh Basetty, Himani Jha, Kasie Yang',
-      'Developers: Clemente Irarrazaval, Alyssa Leung, Sunny Gandhari, Janani Acharya, Kian Shandi',
+      'Developers: Clemente Irarrazaval, Alyssa Leung, Sunny Gandhari - Developer, Janani Acharya, Kian Shandi',
       'Designers: Edin Le, Linda Wang, Kai Davey',
     ],
     backgroundTitle: 'NonProfit BACKGROUND',
-    background: 'Mending Kids provides life-changing surgical care to children worldwide by deploying volunteer medical teams and coordinating donated medical supplies for surgical missions.',
-    problem: 'Mending Kids needed a clearer inventory workflow for tracking supplies from donation intake to categorization, expiration review, mission assignment, and destination handoff.',
-    solutionIntro: 'Our team designed a dashboard-centered inventory system for Mending Kids staff.',
+    background: 'Mending Kids provides free life-saving surgeries to children who can’t afford them across the world, providing volunteering surgeons, medical staff, and medical supplies, either going to them or flying them into the US for the necessary care.',
+    problem: 'Medical supplies are tracked using a manual, error-prone spreadsheet by rotating staff, leading to supply waste, inefficient operations, audit challenges, and underfunded missions.',
+    solutionIntro: 'An inventory management system that provides full visibility and control of a supply’s end-to-end journey from donation to deployment, streamlining operational processes and report generation.',
     solutions: [
-      { title: 'Dashboard', body: 'The Dashboard acts as the primary anchor for users and supports general filtering.' },
-      { title: 'Inventory Management', body: 'Staff can log, categorize, edit, and track medical supplies through a structured web interface.' },
-      { title: 'Mission Assignment', body: 'Inventory can be associated with medical missions so supplies move from donation intake to destination.' },
+      { title: 'Dashboard', body: 'High-level overview of inventory status, including items nearing expiration, low-stock alerts, ongoing and upcoming mission summaries, and an activity feed.' },
+      { title: 'Inventory Management', body: 'An inventory system for managing donated medical supplies, with detailed item records, inventory status tracking, and comprehensive filtering.' },
+      { title: 'Missions Page', body: 'Mission dashboard organizing missions by specialty and location, displaying key details—including mission information, medical lead, team members, and budget—for efficient planning and coordination.' },
     ],
-    testimonial: '“This is much more like streamline process... there’s just less steps. It’s way better than what we’re working with now for sure!”',
+    testimonial: '“This is a much more streamlined process... there’s just less steps. It’s way better than what we’re working with now for sure!”',
+    metrics: [{ value: '98.2%', label: 'seamless task success rate' }, { value: '81.8%', label: 'of users demonstrate perfect mental-model alignment' }, { value: '22.7 sec', label: 'identifying urgent items using Dashboard' }],
     teamImages: ['/assets/figma/details/mk-team-1.png', '/assets/figma/details/mk-team-2.png'],
   },
   {
@@ -56,7 +58,7 @@ const projects: Project[] = [
     screen: '/assets/wags-screen.png',
     label: 'Inventory Management',
     summary: 'A webpage to centralize dog fosters, automate reminders, and consolidate resources into a user-friendly system.',
-    figmaNode: '237:1366',
+    figmaNode: '862:9782',
     timeline: 'January 2026 - June 2026',
     techStack: 'Next.js, Firebase, Google Apps Script, Google Sheets, Shelter Manager, Squarespace, Figma',
     teamMembers: [
@@ -65,15 +67,16 @@ const projects: Project[] = [
       'Designers: Maya Yoder, Nancy Tran',
     ],
     backgroundTitle: 'NonProfit BACKGROUND',
-    background: 'Wags & Walks is a nonprofit dog rescue organization that depends on foster coordination, timely communication, and accessible foster resources to support its adoption and rescue work.',
-    problem: 'Wags & Walks needed a more efficient way to track foster photo and survey submissions, follow up in a timely and organized manner, sort and search fosters, and maintain foster notes.',
-    solutionIntro: 'Our team designed and built a new foster portal for Wags & Walks.',
+    background: 'Wags & Walks is a nonprofit dedicated to reducing euthanasia in local shelters and helping rescue dogs find permanent homes. One of its most impactful initiatives is its Foster Program, which places rescue dogs in temporary homes where they can receive care, socialization, and stability before adoption.',
+    problem: 'Decentralized foster management systems and manual workflows created inefficiencies, limited visibility into foster progress, and made onboarding resources difficult to access.',
+    solutionIntro: 'A centralized foster management and resource platform that streamlines onboarding, communication, and resource accessibility for the Wags & Walks team.',
     solutions: [
-      { title: 'Foster Dashboard', body: 'Tracks foster photo and survey submissions so the team can follow up in a timely and organized manner.' },
-      { title: 'Matching and Notes', body: 'Supports searching and sorting fosters by experience, key matching criteria, and detailed notes.' },
-      { title: 'Resource Center', body: 'Organizes onboarding materials, educational guides, PDFs, videos, and FAQs into a searchable hub.' },
+      { title: 'Applicant Pipeline', body: 'Centralizes foster applications into one dashboard for reviewing, searching, filtering, and tracking applications with staff notes and status updates.' },
+      { title: 'Foster Directory', body: 'A unified directory combining application, ShelterManager, and Google Group data with insights into foster activity and active dogs.' },
+      { title: 'Task & Communication Management', body: 'Prioritized follow-ups, household profiles, email tools, and admin controls streamline foster support and communication.' },
+      { title: 'Resource Center', body: 'Organizes onboarding materials, educational guides, PDFs, videos, and FAQs into a searchable and filterable hub.' },
     ],
-    testimonial: '“Working with the Nova team has been an incredibly positive experience for our organization, Wags & Walks. Their thoughtful, solutions-oriented approach and genuine investment in our mission have already made a meaningful impact on our foster program.” - Eitan Nir, Foster Lead, Wags & Walks',
+    testimonial: '“Nova’s thoughtful, solutions-oriented approach and genuine investment in our mission has helped streamline processes and ultimately allow our team to spend less time on administrative tasks and more time focusing on what matters most—supporting our fosters and saving dogs. We are so grateful for Nova’s partnership, creativity, and dedication. Their work will have a lasting impact on our organization, and we would highly recommend them to any nonprofit looking to enhance their operations through thoughtful, mission-driven technology solutions.”',
     teamImages: ['/assets/figma/details/wags-team-1.png', '/assets/figma/details/wags-team-2.png'],
   },
   {
@@ -83,7 +86,7 @@ const projects: Project[] = [
     screen: '/assets/crjw-screen.png',
     label: 'Missions',
     summary: 'An external fund allocation platform that auto-imports donor and donation information into structured, usable data.',
-    figmaNode: '237:1863',
+    figmaNode: '862:10071',
     timeline: 'January 2026 - June 2026',
     techStack: 'React + Vite, Tailwind CSS, Firebase (Hosting & Cloud Functions), Parse Server, Resend, Figma, Ant Design',
     teamMembers: [
@@ -93,8 +96,8 @@ const projects: Project[] = [
     ],
     backgroundTitle: 'NonProfit BACKGROUND',
     background: 'Center for Restorative Justice Works (CRJW) is a nonprofit organization dedicated to restoring relationships impacted by incarceration. CRJW supports children, families, and formerly incarcerated individuals through programs that promote connection, healing, and successful reentry into society.',
-    problem: 'CRJW relies on donations to sustain its programs, internal needs, and serve families impacted by incarceration. While they have a functional donation intake system from multiple sources, workflows are highly manual, and they lack a centralized platform to allocate funding and store data long-term.',
-    solutionIntro: 'Our team integrated fund allocation tools and automated donation tracking into CRJW’s existing internal platform.',
+    problem: 'Donation management depended on disconnected systems and manual data entry in spreadsheets with donor records expiring after 90 days, creating challenges for long-term financial tracking.',
+    solutionIntro: 'Integrated fund allocation tools, automated donation tracking, and a reporting dashboard into CRJW’s existing internal platform, improving financial visibility and operational efficiency.',
     solutions: [
       { title: 'Automated Donation Tracking', body: 'The updated platform syncs new donations collected through Harness Giving with CRJW’s internal database, eliminating ~90% of manual entry.' },
       { title: 'Centralized Fund Allocation System', body: 'Staff can allocate donation funds to various programs directly through the internal site, without cross-referencing donation data.' },
@@ -133,6 +136,9 @@ const partnerLogos = [
   { name: 'Westside Food Bank', src: '/assets/figma/logos/wsfb.png' },
 ]
 const teamPhotos = ['/assets/team-1.png', '/assets/team-2.png', '/assets/team-3.png', '/assets/team-4.png']
+const teamPortraits = [
+  'cf067441fa93280a6744011b94854b72ad2519c0','611b9169a36c8f86adeb319f2f980943b0efc890','e116c36be3821871362acf3b75de80384d79ec0e','e9eb002287b21c75506b5b937e0d30be0a31558a','d9febe851a5ede0f87c96fccb1abb82716919f9c','00b5f7ca809ac7f6ab3ee5c78a244bac7aa31561','c1fa872c4238d5ba673e5af648616cbe6d176716','8569a03c361957c502f698152cce4a2fb7eb530d','ad3917c18ae10a200bc814d6e842ac15f472a879','853f692b4853250655930a7b9e03940ad3d5942c','8900b79e3b901a79787031a8d890d43bee4ce035','1b0f7b349c3a2bd6fac0d34d092514f42638cdb6','8054c18f13f416200798d3f19dafdda26c2ad4c6','cd3e8f5211b6f41b91b0eea3c74a10ae6ab5bd1d','f6e4446ba99998f1895141819dee0d66a2a3dce6','c5ccb20ceaa46f51f3dc315cba1f70b0428af725','946cdb9bbbcd70146a01a895827af7085ea0ace8','40e196b4946b8ab70f89c59cb59f707535b285e9','7b41fc4875668e1e2d04ca1cc3ff778536fccde0','cdc1b46c5a827edb608d12cf8a748eea62f2e729','0dd63cfd420cf5923ce16e24aca072a9d4d31b57','0aaeb2e5afa4279dd644061059a225a36f08522b','bd5d1c743d273f67bcb2317d2df6f35f6b308cdc','cb5e9dd45405af8c8726f5c4c6b55716c74a3f63','e76b4d350649659628892fc60c40246a8814016c','3646ac6e0a0a3967039c603533235f5e8b835906','47a35517dc29f4fe52d405c1ab7ba4b3e7f72d49','cc87af4b30c54c8e75c5adb1fd5ad42e8513f175','f682af4d14c6f25d38d4bcded598ec1b7eec588b','b86626db3f7a05ccf4bde9e738024ff716dcf6e9','053c5c9ea5b7fd3765f3a1328dc1f25274c78472','b9cbe478561a34f93e54be980b562b33f5f3a57c','15c64910f4aba320c30acb85564d77d168021f91','c3551cc34537be75565c02b4f6ba2448deeb7c08',
+].map(hash => `http://localhost:3845/assets/${hash}.png`)
 const landingPhotos = Array.from({ length: 15 }, (_, index) => `/assets/figma/landing/photo-${index + 1}.png`)
 const landingPartners = Array.from({ length: 16 }, (_, index) => `/assets/figma/landing/partner-${index + 1}.png`)
 
@@ -177,10 +183,16 @@ function Logo() {
   </Link>
 }
 
+function SocialIcon({ name }: { name: 'facebook' | 'instagram' | 'github' }) {
+  if (name === 'facebook') return <svg viewBox="0 0 34.02 34.02" aria-hidden="true"><path d="M34.02 16v2.18c-.4 4.67-2.57 9.05-6.19 12.04a17.03 17.03 0 0 1-8.74 3.8V20.65h4.01l.71-4.84h-4.72v-3.84c0-.82.83-1.56 1.65-1.56H24V6.18c-2.68-.22-5.81-.71-7.99 1.18-2.38 2.12-1.88 5.57-1.93 8.45h-4.07v4.84h4.07v13.18C2.22 31.78-3.81 18.31 2.6 7.95 11.26-6.05 33.01-.43 34.02 16Z"/></svg>
+  if (name === 'github') return <svg viewBox="0 0 34.5 34.02" aria-hidden="true"><path d="M12.93 33.24c-.28 1.6-2.6.32-3.49-.15C-6.54 24.8-.96.33 16.65 0c17.62-.32 24.71 23.4 9.58 32.46-.76.46-4.15 2.5-4.56 1.04-.27-1.97.25-4.5-.04-6.4-.12-.72-.9-1.22-.87-1.98 2.46-.21 5.19-1.27 6.47-3.51 1.36-2.4 1.62-5.82.43-8.34-.22-.45-.87-1.17-.92-1.57-.12-.99.4-2.1.06-3.56-.36-1.54-1.36-.97-2.48-.58-.7.24-2.26 1.26-2.62 1.31-.48.08-2.45-.4-3.18-.43-.68-.04-1.5-.04-2.18-.01-.9.04-3.02.56-3.66.34-.59-.21-1.38-.86-2.08-1.14-2.11-.82-2.79-.67-2.9 1.75-.04.78.25 1.9.14 2.49-.08.43-.81 1.21-1.04 1.74-.92 2.12-.54 6.26.75 8.22 1.6 2.43 3.61 2.68 6.17 3.29.18.04.27-.1.22.22l-1.11 2.28c-1.71.57-2.96.45-4.26-.81-1.02-.99-2.26-3.43-4.06-2.19.5.78 1.24 1.2 1.8 1.98.8 1.11 1.15 2.6 2.5 3.19.13.06.79.31.85.31h3.27c-.12.95.15 2.24 0 3.15Z"/></svg>
+  return <svg viewBox="0 0 34.02 34.02" aria-hidden="true"><circle cx="17.01" cy="17.01" r="17.01"/><rect x="8.1" y="8.1" width="17.82" height="17.82" rx="5.3" fill="none" stroke="white" strokeWidth="2.2"/><circle cx="17.01" cy="17.01" r="4.45" fill="none" stroke="white" strokeWidth="2.2"/><circle cx="23.1" cy="10.95" r="1.3" fill="white"/></svg>
+}
+
 function Header() {
   const [open, setOpen] = useState(false)
   const close = () => setOpen(false)
-  const links = [['About', '/#about'], ['Our Work', '/work'], ['Our Team', '/#team'], ['For Students', '/students'], ['For Nonprofits', '/nonprofits']]
+  const links = [['About', '/about'], ['Our Work', '/work'], ['Our Team', '/team'], ['For Students', '/students'], ['For Nonprofits', '/nonprofits']]
 
   return <header className="header">
     <nav className="nav" aria-label="Main navigation">
@@ -188,7 +200,7 @@ function Header() {
       <button className="menu-button" onClick={() => setOpen(!open)} aria-label="Toggle navigation">{open ? <X /> : <Menu />}</button>
       <div className={`nav-links ${open ? 'open' : ''}`}>
         {links.map(([label, href]) => <Link key={href} href={href} onClick={close}>{label}</Link>)}
-        <a className="button button-solid" href="mailto:hello@novaforgood.org">Contact Us <ArrowUpRight size={15}/></a>
+        <a className="button button-solid" href="https://mail.google.com/mail/?view=cm&fs=1&to=novaforgood@gmail.com" target="_blank" rel="noopener noreferrer">Contact Us <ArrowUpRight size={15}/></a>
       </div>
     </nav>
   </header>
@@ -198,12 +210,17 @@ function Footer() {
   return <footer>
     <div className="footer-brand"><Logo/><strong>NOVA, TECH FOR GOOD</strong></div>
     <div className="footer-links">
-      <Link href="/#about">About</Link>
+      <Link href="/about">About</Link>
       <Link href="/work">Work</Link>
-      <Link href="/#team">Our Team</Link>
+      <Link href="/team">Our Team</Link>
       <Link href="/students">For Students</Link>
     </div>
     <small>© 2026 nova for good | Last updated June 13, 2026</small>
+    <div className="footer-socials" aria-label="Social links">
+      <a href="https://www.facebook.com/novaforgood" target="_blank" rel="noreferrer" aria-label="Nova on Facebook"><SocialIcon name="facebook" /></a>
+      <a href="https://www.instagram.com/novaforgood" target="_blank" rel="noreferrer" aria-label="Nova on Instagram"><SocialIcon name="instagram" /></a>
+      <a href="https://github.com/novaforgood" target="_blank" rel="noreferrer" aria-label="Nova on GitHub"><SocialIcon name="github" /></a>
+    </div>
   </footer>
 }
 
@@ -239,8 +256,8 @@ function LandingPage() {
 
       <section className="landing-gallery" id="team" aria-label="Nova team photos">
         <div className="landing-photo-rows">
-          <PhotoStrip photos={landingPhotos.slice(0, 4)} widths={[342.56, 282.433, 385.38, 192.69]} />
-          <PhotoStrip photos={landingPhotos.slice(4, 8)} widths={[192.69, 342.56, 342.56, 192.69]} />
+          <PhotoStrip photos={landingPhotos.slice(0, 6)} widths={[342.56, 282.433, 385.38, 192.69, 342.56, 282.433]} />
+          <PhotoStrip photos={landingPhotos.slice(6, 12)} widths={[192.69, 342.56, 342.56, 192.69, 282.433, 385.38]} />
         </div>
         <div className="landing-about" id="about">
           <div>
@@ -293,7 +310,7 @@ function ProjectCard({ project }: { project: Project }) {
 
 function NetworkSection() {
   return <section className="landing-network">
-    <div className="landing-section-intro"><h2>Our Network</h2><p>We wouldn't be able to do what we love alone. We're grateful for these organizations who have advised us and given us a hand in better understanding the social sector. Interested in becoming a partner or advisor? <u>Let us know</u> — we'd love to talk with you!</p></div>
+    <div className="landing-section-intro"><h2>Our Network</h2><p>We wouldn't be able to do what we love alone. We're grateful for these organizations who have advised us and given us a hand in better understanding the social sector. Interested in becoming a partner or advisor? <a href="https://forms.gle/g6gmjG4uYwL1AP5T9" target="_blank" rel="noreferrer"><u>Let us know</u></a> — we'd love to talk with you!</p></div>
     <div className="landing-partners">{landingPartners.map(src => <img key={src} src={src} alt="Nova partner" />)}</div>
   </section>
 }
@@ -311,7 +328,8 @@ function WorkPage() {
 
   return <AppShell>
     <div className="work-page" data-node-id="345:778">
-      <img className="work-gradient-mesh" src="/assets/figma/work/gradient-mesh-4.png" alt="" />
+      <span className="work-gradient-mesh work-gradient-mesh-top" aria-hidden="true"><img src="/assets/figma/work/gradient-mesh-4.png" alt="" /></span>
+      <span className="work-gradient-mesh work-gradient-mesh-left" aria-hidden="true"><img src="/assets/figma/work/gradient-mesh-4.png" alt="" /></span>
       <img className="work-wave" src="/assets/figma/work/project-wave.png" alt="" />
       <img className="work-side-blob" src="/assets/figma/work/side-blob.png" alt="" />
       <img className="work-star work-star-bottom-left" src="/assets/figma/work/star.png" alt="" />
@@ -344,35 +362,114 @@ function WorkPage() {
   </AppShell>
 }
 
+const boardMembers = [
+  ['Himani Jha', 'President'], ['Ashley Varghese', 'President'], ['Jay Thapar', 'External Vice-President'],
+  ['Gokul Nambiar', 'Internal Vice-President'], ['Akhilesh Basetty', 'Developer'], ['Linda Wang', 'Designer'],
+  ['Tawny Huang', 'Developer'], ['Anusha Ladha', 'Developer'],
+]
+
+const generalMembers = [
+  ['Aditi Karthik', 'Developer'], ['Clare Jin', 'Developer'], ['Christine Han', 'Developer'],
+  ['Cao Ninh Nguyen', 'Developer'], ['Sophie Kim', 'Designer'], ['Edin Le', 'Designer'],
+  ['Katelyn Doanla', 'Designer'], ['Olivia Qi', 'Designer'], ['Jimin Kim', 'Developer'],
+  ['Travis Ha', 'Developer'], ['Kasie Yang', 'Designer'], ['Lian Elsa Linton', 'Developer'],
+  ['Shane Kuk', 'Developer'], ['Kian Shandi', 'Developer'], ['Haydn Man', 'Developer'],
+  ['Katie Azuma', 'Designer'], ['Tiffany Pham', 'Designer'], ['Viyan Dabke', 'Developer'],
+  ['Edi Zhang', 'Developer'], ['Kai Davey', 'Designer'], ['Nancy Tran', 'Designer'],
+  ['Sunny Gandhari', 'Developer'], ['Maya Yoder', 'Designer'], ['Alyssa Leung', 'Developer'],
+  ['Janani Acharya', 'Developer'], ['Clemente Irarrazaval', 'Developer'],
+]
+
+function AboutPage() {
+  const stories = [
+    [<>We were founded in November 2018, when our co-founders—Bryan, Jessica, Max, and Stephanie—wanted to use their technical skills to make an active impact in the LA community.<br/><br/>In the coming weeks, they cold-emailed nonprofits across the city, seeking out problems that technology could tackle.</>, '/assets/figma/about/story-1.png'],
+    [<>It’s this constant desire to learn and create that has brought together <strong>40+ committed members</strong> working year-round on projects to help nonprofits serve their communities more effectively.<br/><br/>We are a close-knit group of CS, design, and business students at UCLA, each actively participating in outreach, problem-solving, and development.</>, '/assets/figma/about/story-2.png'],
+    [<>We strive to understand the reality of under-resourced communities by working closely with nonprofits. We represent an ambitious, fast-moving, and creative team aiming to make a lasting impact.<br/><br/>We believe that <strong>anyone</strong> can help bring change to the community. We are Nova.</>, '/assets/figma/about/story-3.png'],
+  ]
+  return <AppShell><div className="about-page" data-node-id="494:113">
+    <div className="about-background" aria-hidden="true">
+      <img className="about-background-mesh" src="/assets/figma/about/background.png" alt="" />
+      <img className="about-constellation" src="/assets/figma/about/constellation.svg" alt="" />
+    </div>
+    <section className="about-story">
+      <h1>Our Story</h1>
+      <div className="about-story-list">{stories.map(([copy, image], index) => <article className={index % 2 ? 'reverse' : ''} key={index}>
+        <p>{copy}</p><img src={image as string} onError={event => { event.currentTarget.src = teamPhotos[index] }} alt={`Nova members, chapter ${index + 1}`} />
+      </article>)}</div>
+    </section>
+    <div className="about-actions"><Link className="button button-outline" href="/nonprofits">Work With Us <ArrowUpRight size={12}/></Link><Link className="button button-outline" href="/students">Join Our Team <ArrowUpRight size={12}/></Link></div>
+  </div></AppShell>
+}
+
+function TeamMember({ member, index }: { member: string[]; index: number }) {
+  return <article className="team-member">
+    <img src={teamPortraits[index]} onError={event => { event.currentTarget.src = teamPhotos[index % teamPhotos.length] }} alt={`${member[0]}, ${member[1]}`} />
+    <h3>{member[0]}</h3><p>{member[1]}</p>
+    <a className="linkedin-mark" href="https://www.linkedin.com/company/nova-tech-for-good/" target="_blank" rel="noreferrer" aria-label={`${member[0]} on LinkedIn`}>in</a>
+  </article>
+}
+
+function TeamPage() {
+  return <AppShell><div className="team-page" data-node-id="494:987">
+    <div className="team-background" aria-hidden="true">
+      <img className="team-bg-mesh" src="/assets/figma/team/gradient-mesh-top.png" alt="" />
+      <img className="team-bg-halo team-bg-halo-middle" src="/assets/figma/team/gradient-halo-middle.png" alt="" />
+      <img className="team-bg-halo team-bg-halo-bottom" src="/assets/figma/team/gradient-halo-bottom.png" alt="" />
+      <img className="team-star team-star-left-large" src="/assets/figma/team/star-large.png" alt="" />
+      <img className="team-star team-star-left-small" src="/assets/figma/team/star-small.png" alt="" />
+      <img className="team-star team-star-right-large" src="/assets/figma/team/star-large.png" alt="" />
+      <img className="team-star team-star-right-top" src="/assets/figma/team/star-top-right.png" alt="" />
+      <img className="team-ring-left" src="/assets/figma/team/ring-left.png" alt="" />
+      <img className="team-ring-right" src="/assets/figma/team/ring-right.png" alt="" />
+    </div>
+    <section className="team-content">
+      <h1>Meet Our Team</h1>
+      <p className="team-intro">We are a close-knit group of CS, design, and business students at UCLA, each actively participating in outreach, problem-solving, and development.</p>
+      <h2>26–27 Board</h2><div className="team-grid">{boardMembers.map((member, index) => <TeamMember member={member} index={index} key={member[0]} />)}</div>
+      <h2>Members</h2><div className="team-grid">{generalMembers.map((member, index) => <TeamMember member={member} index={index + boardMembers.length} key={member[0]} />)}</div>
+      <section className="team-join"><div><h2>Join Us!</h2><p>We’re always looking for thoughtful developers, designers, and community-minded builders to join Nova.</p><Link className="button button-outline" href="/students">Recruitment Details <ArrowUpRight size={12}/></Link></div><img src="/assets/team-4.png" alt="Nova members collaborating" /></section>
+      <section className="team-alumni"><h2>Alumni</h2><p>Project Managers　 · 　Developers　 · 　Designers</p></section>
+    </section>
+  </div></AppShell>
+}
+
 function NonprofitsPage() {
   return <AppShell>
+    <div className="nonprofits-page" data-node-id="362:316">
+    <div className="nonprofits-background" aria-hidden="true">
+      <img className="nonprofits-bg-top" src="/assets/figma/nonprofits-exact/background-a.png" alt="" />
+      <img className="nonprofits-bg-bottom" src="/assets/figma/nonprofits-exact/background-b.png" alt="" />
+      <img className="nonprofits-constellation" src="/assets/figma/nonprofits-exact/constellation.svg" alt="" />
+    </div>
     <section className="split-hero section-shell">
-      <div><h1>For Nonprofits</h1><p>We partner with nonprofits to create technology solutions that address meaningful operational needs. From custom dashboards to data tools and workflow automation, our student teams scope, design, and build practical products with nonprofit partners.</p><a className="button button-outline" href="mailto:hello@novaforgood.org?subject=Nonprofit%20partnership">Work With Us <ArrowUpRight size={15}/></a></div>
+      <h1>For Nonprofits</h1>
+      <div><p><strong>We partner with nonprofits to create technological solutions that drive meaningful impact.</strong><br/><br/>From ideation to launch, our teams of developers and designers work closely with your organization to understand your goals, design user-centered experiences, and build digital tools that help further your mission.</p><a className="button button-outline" href="mailto:hello@novaforgood.org?subject=Nonprofit%20partnership">Work With Us <ArrowUpRight size={15}/></a></div>
       <img src="/assets/nonprofits-hero.png" alt="Nova team" />
     </section>
     <section className="looking-for section-shell">
-      <h2>What We’re Looking For</h2>
+      <h2>What We Bring</h2>
       <div className="criteria-grid">
-        <article><img src="/assets/team-1.png" alt="" /><h3>Community Impact</h3><p>A mission-driven organization addressing a real community need.</p></article>
-        <article><img src="/assets/team-2.png" alt="" /><h3>Technical Need</h3><p>A software, data, or design problem where a custom technical solution can reduce friction.</p></article>
-        <article><img src="/assets/team-3.png" alt="" /><h3>Commitment</h3><p>A partner team ready to collaborate through discovery, feedback, development, and handoff.</p></article>
+        <article><img src="/assets/figma/nonprofits-exact/bring-1.png" alt="Nova members supporting community impact" /><h3>Community Impact</h3><p>Dedication to creating positive, measurable impact within communities through furthering your mission.</p></article>
+        <article><img src="/assets/figma/nonprofits-exact/bring-2.png" alt="Nova members sharing technical expertise" /><h3>Technical Expertise</h3><p>Innovation centered on technology and design to address your unique challenges, opportunities, and vision.</p></article>
+        <article><img src="/assets/figma/nonprofits-exact/bring-3.png" alt="Nova members collaborating" /><h3>Commitment</h3><p>An enthusiastic team ready to collaborate, share insights, and work alongside our partners to bring ideas to life.</p></article>
       </div>
     </section>
     <section className="process section-shell">
       <h2>Project Structure</h2>
       <div className="timeline">
-        {['Initial Call', 'User Research', 'Development', 'Handoff'].map((item, index) => <article key={item}><span>{index + 1}</span><h3>{item}</h3><p>{['Understand the nonprofit, problem space, and constraints.', 'Map workflows and define the product requirements.', 'Design, build, test, and iterate with partner feedback.', 'Deliver documentation and transition ownership.'][index]}</p></article>)}
+        {['Stakeholder Discovery', 'User Research', 'Development', 'Handoff'].map((item, index) => <article key={item}><span>{index + 1}</span><h3>{item}</h3><p>{['Understanding your mission, defining goals, and establishing project scope.', 'Conducting user research, exploring brand identity, and mapping user flows to inform design decisions.', 'Designing and building solutions through iterative development and user testing.', 'Launching final product and providing documentation and resources for long-term success.'][index]}</p></article>)}
       </div>
     </section>
     <section className="testimonials section-shell">
       <h2>Client Testimonials</h2>
       <div className="testimonial-stack">
-        <blockquote>“Working with the Nova team has been an incredibly positive experience for our organization, Wags & Walks. Their thoughtful, solutions-oriented approach and genuine investment in our mission have already made a meaningful impact on our foster program.”<cite>— Eitan Nir, Foster Lead, Wags & Walks</cite></blockquote>
+        <blockquote>“Nova’s thoughtful, solutions-oriented approach and genuine investment in our mission has helped streamline processes and ultimately allow our team to spend less time on administrative tasks and more time focusing on what matters most—supporting our fosters and saving dogs.<br/><br/>We are so grateful for Nova’s partnership, creativity, and dedication. Their work will have a lasting impact on our organization, and we would highly recommend them to any nonprofit looking to enhance their operations through thoughtful, mission-driven technology solutions.”<cite>— Eitan Nir, Foster Lead, Wags & Walks</cite></blockquote>
         <blockquote>“This is much more like streamline process... there’s just less steps. It’s way better than what we’re working with now for sure!”<cite>— Mary Zimmerman, Mending Kids</cite></blockquote>
       </div>
     </section>
     <NetworkSection />
-    <CtaSection />
+    <section className="nonprofit-cta"><h2>Want to learn more?</h2><div><Link className="button button-outline" href="/about">About Us</Link><Link className="button button-outline" href="/work">Our Work</Link><a className="button button-outline" href="https://mail.google.com/mail/?view=cm&fs=1&to=novaforgood@gmail.com" target="_blank" rel="noopener noreferrer">Contact Us</a></div></section>
+    </div>
   </AppShell>
 }
 
@@ -392,29 +489,49 @@ function StudentsPage() {
     ['Akhilesh Basetty', 'Finance director / Developer', 'I was looking into tech clubs to get CS experience, and I found it really cool how Nova built projects for local nonprofits. I was super hyped to impact the local community while gaining technical experience.'],
     ['Lian Elsa Linton', 'Developer', 'Nova not only gives you the space to grow your technical experience, but it also gives you a really fun and amazing community that makes you feel at home :)'],
   ]
+  const reflectionPortraits = [
+    '/assets/figma/students-exact/candidate-2.png',
+    '/assets/figma/students-exact/candidate-3.png',
+    '/assets/figma/students-exact/candidate-6.png',
+    '/assets/figma/students-exact/candidate-7.png',
+    '/assets/figma/students-exact/candidate-10.png',
+  ]
 
   return <AppShell>
+    <div className="students-page" data-node-id="514:2273">
+    <div className="students-background" aria-hidden="true">
+      <img className="students-mesh students-mesh-middle" src="/assets/figma/students/gradient-mesh-middle.png" alt="" />
+      <img className="students-mesh students-mesh-bottom" src="/assets/figma/students/gradient-mesh-bottom.png" alt="" />
+      <img className="students-sparkles students-sparkles-wide" src="/assets/figma/students/sparkles-wide.svg" alt="" />
+      <img className="students-sparkles students-sparkles-right" src="/assets/figma/students/sparkles-right.svg" alt="" />
+      <span className="students-soft-star students-soft-star-right"><img src="/assets/figma/students/soft-star.png" alt="" /></span>
+      <span className="students-soft-star students-soft-star-bottom-left"><img src="/assets/figma/students/soft-star.png" alt="" /></span>
+    </div>
     <section className="page-hero">
       <h1>Join Us!</h1>
-      <p>At Nova, we’re building a team of developers and designers passionate about improving our communities through tech. We are so excited for you to join us this fall!</p>
     </section>
     <section className="students section-shell">
       <div className="student-banner"><span>✦</span><h2>Light the Way</h2><span>✦</span></div>
       <h3>Fall 2026 Recruitment</h3>
-      <div className="event-list">{events.map(([name, date, detail]) => <article key={name}><strong>{name}</strong><span>{date}</span><small>{detail}</small></article>)}</div>
+      <p className="student-intro-copy">At Nova, we’re building a team of developers and designers passionate about improving our communities through tech. We are so excited for you to join us this fall!</p>
+      <div className="event-list">{events.map(([name, date, detail]) => <article key={name}><strong>{name}</strong><span>{date}</span>{detail ? detail.startsWith('tinyurl') ? <a href={`https://${detail}`} target="_blank" rel="noreferrer">{detail}</a> : <small>{detail}</small> : null}</article>)}</div>
     </section>
     <section className="reflections section-shell">
-      <h2>Why Nova?</h2>
+      <h2>Why Nova?</h2><h3 className="reflection-subtitle">Member Reflections</h3>
       <div className="reflection-grid">
-        {reflections.map(([name, role, quote]) => <article key={name}><h3>{name}</h3><strong>{role}</strong><p>{quote}</p></article>)}
+        {reflections.map(([name, role, quote], index) => <article className={index % 2 ? 'reverse' : ''} key={name}><div><p>“{quote}”</p><strong>— {name}, {role}</strong></div><img src={reflectionPortraits[index]} alt={`${name}, ${role}`} /></article>)}
       </div>
     </section>
+    </div>
   </AppShell>
 }
 
 function ProjectDetailPage({ project }: { project: Project }) {
+  const projectIndex = projects.findIndex(item => item.slug === project.slug)
+  const previous = projects[(projectIndex + projects.length - 1) % projects.length]
+  const next = projects[(projectIndex + 1) % projects.length]
   return <AppShell>
-    <section className="figma-detail-hero" data-node-id={project.figmaNode}>
+    <section className={`figma-detail-hero project-${project.slug}`} data-node-id={project.figmaNode}>
       <img className="detail-deco detail-star detail-star-left" src="/assets/figma/details/star2.png" alt="" />
       <img className="detail-deco detail-star detail-star-right" src="/assets/figma/details/star2.png" alt="" />
       <div className="figma-detail-gradient">
@@ -442,21 +559,33 @@ function ProjectDetailPage({ project }: { project: Project }) {
           <p>{project.problem}</p>
         </section>
 
-        <section className="figma-copy-block">
-          <h2>Our Solution</h2>
-          <p>{project.solutionIntro}</p>
+        <section className="figma-problem figma-solution">
+          <h2>Our Solution</h2><p>{project.solutionIntro}</p>
+        </section>
+
+        <section className="figma-copy-block figma-features">
+          <h2>Key Features</h2>
           <div className="figma-solution-grid">
             {project.solutions.map(solution => <article key={solution.title}>
-              <h3>{solution.title}</h3>
+              <span aria-hidden="true">✦</span><div><h3>{solution.title}</h3>
               <p>{solution.body}</p>
+              </div>
             </article>)}
           </div>
         </section>
 
-        {project.testimonial ? <section className="figma-testimonial">
-          <h2>Client Testimonial</h2>
+        {project.testimonial ? <section className="figma-impact">
+          <h2>Metrics &amp; Impact</h2>
+          {project.metrics ? <div className="metric-grid">{project.metrics.map(metric => <article key={metric.value}><strong>{metric.value}</strong><span>{metric.label}</span></article>)}</div> : null}
+          {project.slug === 'mending-kids' ? <ul className="mending-impact-findings">
+            <li>The Dashboard acts as the primary anchor for users—<strong>81.8%</strong> rely on it for general filtering.</li>
+            <li>User’s <strong>high-velocity alignment</strong> with our central Dashboard architecture ensures zero friction during wide-scale deployment.</li>
+            <li>High subjective usability rating <strong>(3.1/5 task ease)</strong> for non-expert demographic <strong>(2.9/5 familiarity)</strong></li>
+            <li>Autonomous Power-User Adoption: <strong>25.9%</strong> of testers independently utilized advanced contextual shortcuts to merge creation and assignment loops, cutting traditional operational steps in half.</li>
+          </ul> : null}
+          <div className="figma-testimonial"><h3>Client Testimonial</h3>
           <p>{project.testimonial}</p>
-        </section> : null}
+          </div></section> : null}
 
         <section className="figma-team">
           <h2>Our Team:</h2>
@@ -464,9 +593,8 @@ function ProjectDetailPage({ project }: { project: Project }) {
         </section>
 
         <nav className="figma-detail-nav" aria-label="Project navigation">
-          <Link className="button button-solid" href="/work">Previous Project</Link>
-          <Link className="button button-solid" href="/work">All Projects</Link>
-          <Link className="button button-solid" href="/work">Next Project</Link>
+          <div><Link className="button button-outline" href={`/work/${previous.slug}`}><ArrowLeft size={16}/> Previous Project</Link><Link className="button button-outline" href={`/work/${next.slug}`}>Next Project <ArrowRight size={16}/></Link></div>
+          <Link className="detail-all-projects" href="/work">View All Projects</Link>
         </nav>
       </div>
     </section>
@@ -483,6 +611,8 @@ function App() {
   const project = projects.find(item => normalizedPath === `/work/${item.slug}`)
 
   if (normalizedPath === '/') return <LandingPage />
+  if (normalizedPath === '/about') return <AboutPage />
+  if (normalizedPath === '/team') return <TeamPage />
   if (normalizedPath === '/work') return <WorkPage />
   if (normalizedPath === '/nonprofits') return <NonprofitsPage />
   if (normalizedPath === '/students') return <StudentsPage />
