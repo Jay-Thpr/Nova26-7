@@ -336,11 +336,11 @@ footer { height:172px; padding:35px max(56px,calc((100% - 1168px)/2)); display:g
 .work-gradient-mesh,.work-wave,.work-side-blob,.work-star { position:absolute; z-index:-1; pointer-events:none; max-width:none; }
 .work-gradient-mesh { display:block; overflow:hidden; }
 .work-gradient-mesh img { position:absolute; max-width:none; }
-.work-gradient-mesh-top { top:0; left:50%; width:1280px; height:219px; transform:translateX(-50%); }
-.work-gradient-mesh-top img { top:0; left:-175px; width:1455px; height:1406px; }
-.work-gradient-mesh-left { top:0; left:calc(50% - 640px); width:168px; height:335px; }
-.work-gradient-mesh-left img { top:0; left:0; width:1280px; height:2061px; }
-.work-wave { top:1626px; left:50%; width:1280px; height:1302px; object-fit:cover; object-position:top; transform:translateX(-50%); }
+.work-gradient-mesh-top { top:0; left:0; width:100%; height:219px; transform:none; }
+.work-gradient-mesh-top img { top:0; left:-13.671875%; width:113.671875%; height:1406px; }
+.work-gradient-mesh-left { top:0; left:0; width:max(168px,calc(50% - 472px)); height:335px; }
+.work-gradient-mesh-left img { top:0; left:0; width:761.904762%; height:2061px; }
+.work-wave { top:1626px; left:0; width:100%; height:1302px; object-fit:fill; object-position:top; transform:none; }
 .work-side-blob { top:2331px; left:calc(50% + 265px); width:218px; height:414px; transform:rotate(-40.81deg); }
 .work-star { filter:drop-shadow(0 4px 4px rgba(0,119,219,.5)); object-fit:cover; object-position:center bottom; }
 .work-star-bottom-left { top:2421px; left:calc(50% - 644px); width:177px; height:169px; transform:rotate(-13deg); }
@@ -657,25 +657,25 @@ footer { height:172px; padding:35px max(56px,calc((100% - 1168px)/2)); display:g
 }
 
 /* Landing page: coordinates follow the 1280px Figma artboard. */
-.landing-page { position:relative; overflow:hidden; background-color:#fafcff; background-image:url('/assets/figma/landing/gradient-halo-4.png'),url('/assets/figma/landing/gradient-mesh-2.png'); background-position:top center,center 4222px; background-size:1280px 2873px,1280px 1937px; background-repeat:no-repeat,no-repeat; }
+.landing-page { position:relative; overflow:hidden; background-color:#fafcff; background-image:url('/assets/figma/landing/gradient-halo-4.png'),url('/assets/figma/landing/gradient-mesh-2.png'); background-position:top center,center 4222px; background-size:100% 2873px,100% 1937px; background-repeat:no-repeat,no-repeat; }
 .landing-decor { position:absolute; z-index:0; inset:0; pointer-events:none; }
 .landing-decor img { position:absolute; object-fit:contain; }
 .landing-decor-sparkles { width:1121px; height:2801px; }
-.landing-decor-sparkles-top { top:83.632px; left:83.957px; }
-.landing-decor-sparkles-middle { top:1652.632px; left:79.957px; }
-.landing-decor-gallery-ribbon { top:1848px; left:-308px; width:622px; height:483px; }
-.landing-decor-about-star { top:1527px; left:0; width:346px; height:356px; }
-.landing-decor-project-ring { top:2636px; left:-496px; width:665px; height:822px; }
-.landing-decor-project-planet { top:3285px; left:1068px; width:543px; height:481px; }
-.landing-decor-network-star-large { top:4539px; left:-79px; width:241px; height:227px; }
-.landing-decor-network-star-small { top:4709px; left:2px; width:182px; height:178px; }
+.landing-decor-sparkles-top { top:83.632px; left:calc(50% - 556.043px); }
+.landing-decor-sparkles-middle { top:1652.632px; left:calc(50% - 560.043px); }
+.landing-decor-gallery-ribbon { top:1848px; left:calc(50% - 948px); width:622px; height:483px; }
+.landing-decor-about-star { top:1527px; left:calc(50% - 640px); width:346px; height:356px; }
+.landing-decor-project-ring { top:2636px; left:calc(50% - 1136px); width:665px; height:822px; }
+.landing-decor-project-planet { top:3285px; left:calc(50% + 428px); width:543px; height:481px; }
+.landing-decor-network-star-large { top:4539px; left:calc(50% - 719px); width:241px; height:227px; }
+.landing-decor-network-star-small { top:4709px; left:calc(50% - 638px); width:182px; height:178px; }
 .landing-page > section { position:relative; z-index:1; }
 .landing-hero { position:relative; height:896px; overflow:hidden; }
 .landing-hero-copy { position:absolute; top:207px; left:50%; display:flex; width:756px; flex-direction:column; align-items:center; transform:translateX(-50%); text-align:center; }
 .landing-wordmark { width:756px; height:171px; object-fit:contain; }
 .landing-hero-copy h1 { width:752px; margin:23px 0 0; font-family:'Syncopate',sans-serif; font-size:64px; line-height:55px; letter-spacing:-1.92px; text-transform:uppercase; color:#fff; text-shadow:0 4px 4px #176bdf; }
 .landing-hero-copy p { width:395px; margin:72px 0 32px; font-family:'Raleway',sans-serif; font-size:16px; line-height:24px; color:#050505; }
-.landing-hero-star { position:absolute; z-index:1; top:195px; left:-19px; width:401px; height:384px; pointer-events:none; }
+.landing-hero-star { position:absolute; z-index:1; top:195px; left:calc(50% - 659px); width:401px; height:384px; pointer-events:none; }
 .landing-ufo-flight { position:absolute; z-index:3; top:224px; left:calc(50% + 276px); width:144px; height:135px; pointer-events:none; will-change:transform; }
 .landing-ufo { width:100%; height:100%; max-width:none; transform:rotate(-25deg); transform-origin:50% 50%; will-change:transform; }
 .landing-hero-copy { z-index:2; }
@@ -716,8 +716,8 @@ footer { height:172px; padding:35px max(56px,calc((100% - 1168px)/2)); display:g
 .nonprofits-page { position:relative; isolation:isolate; min-height:4855px; overflow:hidden; background:#fff; }
 .nonprofits-background { position:absolute; z-index:-1; inset:0; overflow:hidden; pointer-events:none; }
 .nonprofits-background img { position:absolute; display:block; max-width:none; }
-.nonprofits-bg-top { top:-22.11px; left:50%; width:1283px; height:2281px; transform:translateX(-50%); }
-.nonprofits-bg-bottom { top:2776px; left:50%; width:1400px; height:2151px; transform:translateX(-50%); }
+.nonprofits-bg-top { top:-22.11px; left:0; width:100%; height:2281px; object-fit:fill; transform:none; }
+.nonprofits-bg-bottom { top:2776px; left:0; width:100%; height:2151px; object-fit:fill; transform:none; }
 .nonprofits-constellation { top:120px; left:calc(50% - 608px); width:1146px; height:1874px; }
 .nonprofits-page .section-shell { width:882px; }
 .nonprofits-page .split-hero { height:647px; grid-template-columns:299px 542px; grid-template-rows:115px 370px; column-gap:40px; row-gap:32px; padding:120px 0 0; align-items:start; }
@@ -738,7 +738,7 @@ footer { height:172px; padding:35px max(56px,calc((100% - 1168px)/2)); display:g
 .students-background { position:absolute; z-index:0; inset:0; overflow:hidden; pointer-events:none; }
 .students-page>.page-hero,.students-page>.students,.students-page>.reflections { position:relative; z-index:1; }
 .students-mesh,.students-sparkles,.students-soft-star { position:absolute; display:block; max-width:none; }
-.students-mesh { left:50%; width:1280px; transform:translateX(-50%); }
+.students-mesh { left:0; width:100%; object-fit:fill; transform:none; }
 .students-mesh-middle { top:852px; height:1838px; }
 .students-mesh-bottom { top:2801px; height:612px; }
 .students-sparkles-wide { top:75px; left:calc(50% - 608px); width:1221px; height:3510px; }
@@ -762,7 +762,7 @@ footer { height:172px; padding:35px max(56px,calc((100% - 1168px)/2)); display:g
 .about-page { position:relative; min-height:1759px; overflow:hidden; padding:120px 0 104px; background:#fff; }
 .about-background { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
 .about-background img { position:absolute; display:block; max-width:none; }
-.about-background-mesh { top:-31px; left:50%; width:1280px; height:1931px; transform:translateX(-50%); }
+.about-background-mesh { top:-31px; left:0; width:100%; height:1931px; object-fit:fill; transform:none; }
 .about-constellation { top:120px; left:calc(50% - 608px); width:1169px; height:1044px; }
 .about-story { position:relative; z-index:1; width:882px; margin:auto; }
 .about-story h1,.team-content>h1 { height:115px; margin:0 0 72px; padding-top:48px; color:#176bdf; font:700 64px/67px 'Syncopate'; letter-spacing:-1.92px; text-align:center; text-transform:uppercase; }
@@ -778,16 +778,16 @@ footer { height:172px; padding:35px max(56px,calc((100% - 1168px)/2)); display:g
 .team-page { position:relative; min-height:7771px; overflow:hidden; padding:120px 0 110px; color:#000; background:#fff; }
 .team-background { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
 .team-background img { position:absolute; max-width:none; user-select:none; }
-.team-bg-mesh { top:-11px; left:50%; width:1280px; height:2211px; object-fit:cover; transform:translateX(-50%); }
+.team-bg-mesh { top:-11px; left:0; width:100%; height:2211px; object-fit:fill; transform:none; }
 .team-bg-halo { object-fit:fill; }
-.team-bg-halo-middle { top:2165px; left:-1264px; width:3294px; height:3919px; }
-.team-bg-halo-bottom { top:5638px; left:-1080px; width:2565px; height:2940px; }
-.team-star-left-large { top:29px; left:-50px; width:208px; height:199px; }
-.team-star-left-small { top:164px; left:68px; width:134px; height:128px; }
-.team-star-right-large { top:185px; left:calc(91.67% - 107.33px); width:208px; height:199px; }
-.team-star-right-top { top:73px; left:calc(100% - 110px); width:155px; height:148px; }
-.team-ring-left { top:1187px; left:-111px; width:223px; height:412px; }
-.team-ring-right { top:1518px; left:1055px; width:621px; height:285px; transform:scaleX(-1) rotate(-64.11deg); transform-origin:center; }
+.team-bg-halo-middle { top:2165px; left:calc(50% - 1904px); width:3294px; height:3919px; }
+.team-bg-halo-bottom { top:5638px; left:calc(50% - 1720px); width:2565px; height:2940px; }
+.team-star-left-large { top:29px; left:calc(50% - 690px); width:208px; height:199px; }
+.team-star-left-small { top:164px; left:calc(50% - 572px); width:134px; height:128px; }
+.team-star-right-large { top:185px; left:calc(50% + 426px); width:208px; height:199px; }
+.team-star-right-top { top:73px; left:calc(50% + 530px); width:155px; height:148px; }
+.team-ring-left { top:1187px; left:calc(50% - 751px); width:223px; height:412px; }
+.team-ring-right { top:1518px; left:calc(50% + 415px); width:621px; height:285px; transform:scaleX(-1) rotate(-64.11deg); transform-origin:center; }
 .team-content { position:relative; z-index:1; width:882px; margin:auto; text-align:center; }
 .team-content>h1 { margin-bottom:32px; }
 .team-intro { margin:0 auto 60px; font:400 16px/24px 'Raleway'; }
