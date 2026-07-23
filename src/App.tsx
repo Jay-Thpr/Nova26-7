@@ -1,5 +1,6 @@
 import { ArrowLeft, ArrowRight, ArrowUpRight, Menu, X } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { LandingAbduction } from './LandingAbduction'
 
 type Project = {
   slug: string
@@ -233,8 +234,12 @@ function AppShell({ children }: { children: React.ReactNode }) {
 }
 
 function LandingPage() {
+  const landingPageRef = useRef<HTMLDivElement>(null)
+  const heroUfoRef = useRef<HTMLDivElement>(null)
+  const photoRowsRef = useRef<HTMLDivElement>(null)
+
   return <AppShell>
-    <div className="landing-page">
+    <div className="landing-page" ref={landingPageRef}>
       <div className="landing-decor" aria-hidden="true">
         <img className="landing-decor-sparkles landing-decor-sparkles-top" src="/assets/figma/landing/sparkle-field.svg" alt="" />
         <img className="landing-decor-sparkles landing-decor-sparkles-middle" src="/assets/figma/landing/sparkle-field-middle.svg" alt="" />
@@ -247,7 +252,7 @@ function LandingPage() {
       </div>
       <section className="landing-hero">
         <img className="landing-hero-star" src="/assets/figma/landing/hero-star.png" alt="" />
-        <div className="landing-ufo-flight" aria-hidden="true"><img className="landing-ufo" src="/assets/figma/landing/max-ufo.svg" alt="" /></div>
+        <div className="landing-ufo-flight" ref={heroUfoRef} aria-hidden="true"><img className="landing-ufo" src="/assets/figma/landing/max-ufo.svg" alt="" /></div>
         <div className="landing-hero-copy">
           <img className="landing-wordmark" src="/assets/figma/landing/nova-wordmark.svg" alt="Nova" />
           <h1>Tech for Good</h1>
@@ -257,9 +262,9 @@ function LandingPage() {
       </section>
 
       <section className="landing-gallery" id="team" aria-label="Nova team photos">
-        <div className="landing-photo-rows">
-          <PhotoStrip photos={landingPhotos.slice(0, 6)} widths={[342.56, 282.433, 385.38, 192.69, 342.56, 282.433]} />
-          <PhotoStrip photos={landingPhotos.slice(6, 12)} widths={[192.69, 342.56, 342.56, 192.69, 282.433, 385.38]} />
+        <div className="landing-photo-rows" ref={photoRowsRef}>
+          <PhotoStrip stripId="top" photos={landingPhotos.slice(0, 6)} widths={[342.56, 282.433, 385.38, 192.69, 342.56, 282.433]} />
+          <PhotoStrip stripId="middle" photos={landingPhotos.slice(6, 12)} widths={[192.69, 342.56, 342.56, 192.69, 282.433, 385.38]} />
         </div>
         <div className="landing-about" id="about">
           <div>
@@ -269,20 +274,21 @@ function LandingPage() {
           <Link className="button button-outline" href="/students">Learn More <ArrowUpRight size={12}/></Link>
           <img className="landing-about-planet" src="/assets/figma/landing/about-planet.png" alt="" />
         </div>
-        <PhotoStrip className="landing-bottom-strip" photos={landingPhotos.slice(8, 15)} widths={[342.56, 192.69, 342.56, 192.69, 342.56, 192.69, 342.56]} />
+        <PhotoStrip stripId="bottom" className="landing-bottom-strip" photos={landingPhotos.slice(8, 15)} widths={[342.56, 192.69, 342.56, 192.69, 342.56, 192.69, 342.56]} />
       </section>
 
     <ProjectsPreview />
     <NetworkSection />
     <CtaSection />
+    <LandingAbduction landingPageRef={landingPageRef} heroUfoRef={heroUfoRef} photoRowsRef={photoRowsRef} />
     </div>
   </AppShell>
 }
 
-function PhotoStrip({ photos, widths, className = '' }: { photos: string[]; widths: number[]; className?: string }) {
+function PhotoStrip({ photos, widths, stripId, className = '' }: { photos: string[]; widths: number[]; stripId: string; className?: string }) {
   const sequence = [...photos, ...photos]
-  return <div className={`landing-carousel ${className}`}>
-    <div className="landing-photo-track">{sequence.map((src, index) => <img key={`${src}-${index}`} src={src} style={{ width: widths[index % widths.length] ?? 342.56 }} alt={index < photos.length ? 'Nova team' : ''} />)}</div>
+  return <div className={`landing-carousel ${className}`} data-strip-id={stripId}>
+    <div className="landing-photo-track">{sequence.map((src, index) => <img key={`${src}-${index}`} src={src} data-photo-id={src} data-copy-index={Math.floor(index / photos.length)} data-logical-index={index % photos.length} style={{ width: widths[index % widths.length] ?? 342.56 }} alt={index < photos.length ? 'Nova team' : ''} />)}</div>
   </div>
 }
 
@@ -382,6 +388,22 @@ const generalMembers = [
   ['Janani Acharya', 'Developer'], ['Clemente Irarrazaval', 'Developer'],
 ]
 
+const alumniMembers = [
+  'Sonav Agarwal', 'Kylie Bach', 'Richelle Shim', 'Jason Chan', 'Tam Vo', 'Priyanshu Sharma',
+  'Michael Wu', 'Kevin Li', 'Ingrid Chang', 'Pravir Chugh', 'Sahithi Lingampalli',
+  'Natalia Luzuriaga', 'Nikhil Suresh', 'Arya Bhalla', 'Bryan Chiang', 'Joshua Zhang',
+  'Chinmaya Vempati', 'Yili Liu', 'Janie Wang', 'Sean Choi', 'Valentin Nguyen',
+  'Isabel Parmenter', 'Max Wu', 'Aneri Patel', 'Yuhan Liu', 'Willie Jeng',
+  'Victor Lin', 'Tanaya Nawathe', 'Jeffrey Zhou', 'Anivrit Subramaniam', 'Charlie Kuoch',
+  'Kati Rady-Pentek', 'Jeff Yue', 'Adithya Nair', 'Janys Li', 'Maizah Ali',
+  'Ishan Garg', 'Jessica Wong', 'Steve Jiang', 'Dean Jones', 'Wolfe Pickett',
+  'Bryan Song', 'Ashley Zhu', 'Jenny Wang', 'Alyssa Wang', 'Katie Li',
+  'Iris Chang', 'Catherine Hu', 'Sriram Balachandran', 'Isabella Qian', 'Stephanie Doan',
+  'Serene Supakkul', 'Jessica Lam', 'Sam Chai', 'Vivek Menon', 'Janice Tsai',
+  'Joanna Chen', 'Kristopher Bakhtiar', 'Coleman Leung', 'Hannah Chu', 'Anagha Srivatsav',
+  'Carter Bian', 'Kevin Zhang', 'Edward Zhang', 'Whitney Chan', 'Caitlyn Chen', 'Daniel Fang',
+]
+
 function AboutPage() {
   const stories = [
     [<>We were founded in November 2018, when our co-founders—Bryan, Jessica, Max, and Stephanie—wanted to use their technical skills to make an active impact in the LA community.<br/><br/>In the coming weeks, they cold-emailed nonprofits across the city, seeking out problems that technology could tackle.</>, '/assets/figma/about/story-1.png'],
@@ -430,7 +452,10 @@ function TeamPage() {
       <h2>26–27 Board</h2><div className="team-grid">{boardMembers.map((member, index) => <TeamMember member={member} index={index} key={member[0]} />)}</div>
       <h2>Members</h2><div className="team-grid">{generalMembers.map((member, index) => <TeamMember member={member} index={index + boardMembers.length} key={member[0]} />)}</div>
       <section className="team-join"><div><h2>Join Us!</h2><p>We’re always looking for thoughtful developers, designers, and community-minded builders to join Nova.</p><Link className="button button-outline" href="/students">Recruitment Details <ArrowUpRight size={12}/></Link></div><img src="/assets/team-4.png" alt="Nova members collaborating" /></section>
-      <section className="team-alumni"><h2>Alumni</h2><p>Project Managers　 · 　Developers　 · 　Designers</p></section>
+      <section className="team-alumni">
+        <h2>Alumni</h2>
+        <ul aria-label="Nova alumni">{alumniMembers.map(name => <li key={name}>{name}</li>)}</ul>
+      </section>
     </section>
   </div></AppShell>
 }
