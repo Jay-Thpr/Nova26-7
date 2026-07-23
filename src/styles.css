@@ -372,6 +372,7 @@ footer { height:172px; padding:35px max(56px,calc((100% - 1168px)/2)); display:g
 .work-more-row span { font-weight:400; }
 .work-more-row svg { margin-top:6px; color:#176bdf; }
 .work-more-row:hover strong,.work-more-row:hover svg { color:#176bdf; }
+.work-more-row-static:hover strong { color:#000; }
 
 @media (max-width:960px) {
   .work-page { min-height:0; padding-top:108px; }
@@ -773,7 +774,7 @@ footer { height:172px; padding:35px max(56px,calc((100% - 1168px)/2)); display:g
 .nonprofits-page .looking-for { height:633px; padding:104px 0 0; }
 .nonprofits-page .looking-for h2,.nonprofits-page .process h2,.nonprofits-page .testimonials h2 { font-size:64px; line-height:1; }
 .nonprofits-page .criteria-grid { grid-template-columns:repeat(3,278px); gap:24px; }
-.nonprofits-page .criteria-grid article { padding:0; }.nonprofits-page .criteria-grid img{width:278px;height:232px;margin-bottom:30px}
+.nonprofits-page .criteria-grid article { padding:0; }.nonprofits-page .criteria-grid img{width:278px;height:232px;margin-bottom:30px;border-radius:8px}
 .nonprofits-page .process { height:605px; padding:104px 0 0; }
 .nonprofits-page .testimonials { min-height:1064px; padding:104px 0; }
 .nonprofits-page .testimonials blockquote { max-width:880px; border-width:2px; border-radius:24px; padding:40px 32px; }

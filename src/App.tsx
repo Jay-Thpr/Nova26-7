@@ -109,17 +109,20 @@ const projects: Project[] = [
   },
 ]
 
-const moreProjects = [
-  ['SaveCanto', 'A web app to act as a volunteer management system and a refined map and table system for verifying/displaying Cantonese language learning programs.'],
-  ['Project Ropa Offline Forms App', 'A check-ins app for volunteers to track deliveries of clean clothing to the homeless in LA.'],
-  ['Coordinating Survival Kit Distribution', 'A system streamlining on-the-ground distribution of homeless aid packages by thousands of volunteers.'],
-  ['iiDecide', 'A platform for anonymously connecting victims and survivors of sexual assault who have the same perpetrator.'],
-  ['Oppia', 'Supporting free, interactive online learning opportunities for students with limited access to formal education.'],
-  ['Gladeo', 'A pathway mapper web application to assist community college students in planning their coursework.'],
-  ['Swipe Out Hunger', 'A donor-donee matching app allowing students to share swipes with those struggling from food insecurity.'],
-  ['Westside Food Bank', 'A food pantry locator with information on the nearest available pantries.'],
-  ['Friends of the Semel Institute', 'Data analysis of a UCLA nonprofit’s donor base to maximize donations toward mental health awareness and research.'],
-  ['Beloved Beauty', 'A donor deck and user survey to support funding for victims of sex trafficking.'],
+const moreProjects: { name: string; description: string; npoUrl?: string }[] = [
+  { name: 'Inner City Visions', description: 'A client management system for Inner City Visions to support youth services and human trafficking intervention programs.', npoUrl: 'https://innercityvisions.org/' },
+  { name: 'L.A. Waterkeeper', description: 'An interactive web app that educates the public about the LA River’s impact.', npoUrl: 'https://www.lawaterkeeper.org/' },
+  { name: 'Alzheimer’s San Diego', description: 'A client management system that consolidates client onboarding, check-ins, and tracking all in one platform.', npoUrl: 'https://www.alzsd.org/' },
+  { name: 'SaveCanto', description: 'A web app to act as a volunteer management system and a refined map and table system for verifying/displaying Cantonese language learning programs.' },
+  { name: 'Project Ropa Offline Forms App', description: 'A check-ins app for volunteers to track deliveries of clean clothing to the homeless in LA.', npoUrl: 'https://www.projectropa.org/' },
+  { name: 'Coordinating Survival Kit Distribution', description: 'A system streamlining on-the-ground distribution of homeless aid packages by thousands of volunteers.', npoUrl: 'https://www.thegivingspirit.org/' },
+  { name: 'iiDecide', description: 'A platform for anonymously connecting victims and survivors of sexual assault who have the same perpetrator.' },
+  { name: 'Oppia', description: 'Supporting free, interactive online learning opportunities for students with limited access to formal education.', npoUrl: 'https://www.oppia.org/' },
+  { name: 'Gladeo', description: 'A pathway mapper web application to assist community college students in planning their coursework.', npoUrl: 'https://www.gladeo.org/' },
+  { name: 'Swipe Out Hunger', description: 'A donor-donee matching app allowing students to share swipes with those struggling from food insecurity.', npoUrl: 'https://www.swipehunger.org/' },
+  { name: 'Westside Food Bank', description: 'A food pantry locator with information on the nearest available pantries.', npoUrl: 'http://www.westsidefoodbankca.org/' },
+  { name: 'Friends of the Semel Institute', description: 'Data analysis of a UCLA nonprofit’s donor base to maximize donations toward mental health awareness and research.', npoUrl: 'https://www.friendsofsemelinstitute.org/' },
+  { name: 'Beloved Beauty', description: 'A donor deck and user survey to support funding for victims of sex trafficking.', npoUrl: 'https://www.belovedbeauty.org/' },
 ]
 
 const partnerLogos = [
@@ -245,8 +248,6 @@ function LandingPage() {
         <img className="landing-decor-sparkles landing-decor-sparkles-middle" src="/assets/figma/landing/sparkle-field-middle.svg" alt="" />
         <img className="landing-decor-gallery-ribbon" src="/assets/figma/landing/gallery-ribbon-left.png" alt="" />
         <img className="landing-decor-about-star" src="/assets/figma/landing/about-star-left.png" alt="" />
-        <img className="landing-decor-project-ring" src="/assets/figma/landing/project-ring-left.png" alt="" />
-        <img className="landing-decor-project-planet" src="/assets/figma/landing/project-planet-right.png" alt="" />
         <img className="landing-decor-network-star-large" src="/assets/figma/landing/network-star-large.png" alt="" />
         <img className="landing-decor-network-star-small" src="/assets/figma/landing/network-star-small.png" alt="" />
       </div>
@@ -341,10 +342,6 @@ function WorkPage() {
     <div className="work-page" data-node-id="345:778">
       <span className="work-gradient-mesh work-gradient-mesh-top" aria-hidden="true"><img src="/assets/figma/work/gradient-mesh-4.png" alt="" /></span>
       <span className="work-gradient-mesh work-gradient-mesh-left" aria-hidden="true"><img src="/assets/figma/work/gradient-mesh-4.png" alt="" /></span>
-      <img className="work-wave" src="/assets/figma/work/project-wave.png" alt="" />
-      <img className="work-side-blob" src="/assets/figma/work/side-blob.png" alt="" />
-      <img className="work-star work-star-bottom-left" src="/assets/figma/work/star.png" alt="" />
-      <img className="work-star work-star-bottom-right" src="/assets/figma/work/star.png" alt="" />
       <section className="work-content">
         <header className="work-intro">
           <span className="work-intro-spark work-intro-spark-left">✦</span>
@@ -365,7 +362,9 @@ function WorkPage() {
         <section className="work-more-projects">
           <h2>...and more!</h2>
           <div className="work-more-list">
-            {moreProjects.map(([name, description]) => <Link className="work-more-row" href="/work" key={name}><strong>{name}</strong><span>{description}</span><ArrowUpRight size={12} strokeWidth={1.5}/></Link>)}
+            {moreProjects.map(({ name, description, npoUrl }) => npoUrl
+              ? <a className="work-more-row" href={npoUrl} target="_blank" rel="noopener noreferrer" key={name}><strong>{name}</strong><span>{description}</span><ArrowUpRight size={12} strokeWidth={1.5}/></a>
+              : <div className="work-more-row work-more-row-static" key={name}><strong>{name}</strong><span>{description}</span></div>)}
           </div>
         </section>
       </section>
