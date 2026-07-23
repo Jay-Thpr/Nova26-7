@@ -681,7 +681,7 @@ footer { height:172px; padding:35px max(56px,calc((100% - 1168px)/2)); display:g
 .landing-ufo-flight.is-handed-off { opacity:0; transition:opacity .18s ease; }
 .landing-hero-copy { z-index:2; }
 .landing-gallery { height:1286px; }
-.landing-photo-rows { display:flex; flex-direction:column; gap:24px; padding:0 24px; }
+.landing-photo-rows { display:flex; flex-direction:column; gap:24px; padding:0; }
 .landing-carousel { height:273px; overflow:hidden; padding:8px 0; }
 .landing-photo-track { display:flex; width:max-content; height:257px; gap:24px; animation:landing-photo-loop 38s linear infinite; }
 .landing-photo-track img { height:257px; flex:0 0 auto; border-radius:1000px; object-fit:cover; box-shadow:0 0 8px 2px rgba(255,255,255,.5); }
@@ -694,7 +694,7 @@ footer { height:172px; padding:35px max(56px,calc((100% - 1168px)/2)); display:g
 .landing-about p { width:580px; margin:24px 0 0; font-family:'Raleway',sans-serif; font-size:16px; line-height:24px; color:#050505; }
 .landing-about .button { position:relative; z-index:2; font-family:'Raleway',sans-serif; font-weight:400; }
 .landing-about-planet { position:absolute; top:-190px; right:-120px; width:222px; height:222px; }
-.landing-bottom-strip { width:1232px; margin:0 auto; }
+.landing-bottom-strip { width:100%; margin:0; }
 
 /* Landing gallery UFO abduction */
 .ufo-abduction-layer { position:absolute; z-index:15; inset:0; overflow:hidden; pointer-events:none; opacity:0; transition:opacity .18s ease; }
@@ -894,7 +894,7 @@ footer { height:172px; padding:35px max(56px,calc((100% - 1168px)/2)); display:g
       83% { transform:translateY(-2px) rotate(-22deg); }
     }
   }
-  @keyframes landing-photo-loop { to { transform:translateX(-50%); } }
+  @keyframes landing-photo-loop { to { transform:translateX(calc(-50% - 12px)); } }
 }
 
 /* CRJW project detail — authoritative Figma frame 862:10071 (1280 × 4485). */

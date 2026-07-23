@@ -286,7 +286,10 @@ function LandingPage() {
 }
 
 function PhotoStrip({ photos, widths, stripId, className = '' }: { photos: string[]; widths: number[]; stripId: string; className?: string }) {
-  const sequence = [...photos, ...photos]
+  // Keep each half of the animated track wider than large desktop viewports so
+  // the carousel never reveals empty space while it loops.
+  const loop = [...photos, ...photos]
+  const sequence = [...loop, ...loop]
   return <div className={`landing-carousel ${className}`} data-strip-id={stripId}>
     <div className="landing-photo-track">{sequence.map((src, index) => <img key={`${src}-${index}`} src={src} data-photo-id={src} data-copy-index={Math.floor(index / photos.length)} data-logical-index={index % photos.length} style={{ width: widths[index % widths.length] ?? 342.56 }} alt={index < photos.length ? 'Nova team' : ''} />)}</div>
   </div>
