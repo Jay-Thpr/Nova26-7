@@ -262,17 +262,30 @@ function AppShell({ children, skeleton }: { children: React.ReactNode; skeleton:
   </main>
 }
 
+// Narrower viewports slow the photo carousels down: 1440px+ plays at normal
+// speed, down to 3x slower (i.e. 1/3 speed) around phone-width viewports.
+function carouselSpeedForWidth(width: number) {
+  return Math.min(3, Math.max(1, 1440 / width))
+}
+
 function LandingPage() {
   const landingPageRef = useRef<HTMLDivElement>(null)
   const heroUfoRef = useRef<HTMLDivElement>(null)
   const photoRowsRef = useRef<HTMLDivElement>(null)
   const [wideCarousel, setWideCarousel] = useState(() => window.matchMedia('(min-width:1800px)').matches)
+  const [carouselSpeed, setCarouselSpeed] = useState(() => carouselSpeedForWidth(window.innerWidth))
 
   useEffect(() => {
     const media = window.matchMedia('(min-width:1800px)')
     const update = () => setWideCarousel(media.matches)
     media.addEventListener('change', update)
     return () => media.removeEventListener('change', update)
+  }, [])
+
+  useEffect(() => {
+    const update = () => setCarouselSpeed(carouselSpeedForWidth(window.innerWidth))
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
   }, [])
 
   useEffect(() => {
@@ -309,8 +322,8 @@ function LandingPage() {
 
       <section className="landing-gallery" id="team" aria-label="Nova team photos">
         <div className="landing-photo-rows" ref={photoRowsRef}>
-          <PhotoStrip stripId="top" photos={landingPhotos.slice(0, 6)} widths={[342.56, 282.433, 385.38, 192.69, 342.56, 282.433]} repeatsPerHalf={wideCarousel ? 2 : 1} />
-          <PhotoStrip stripId="middle" photos={landingPhotos.slice(6, 12)} widths={[192.69, 342.56, 342.56, 192.69, 282.433, 385.38]} repeatsPerHalf={wideCarousel ? 2 : 1} />
+          <PhotoStrip stripId="top" photos={landingPhotos.slice(0, 6)} widths={[342.56, 282.433, 385.38, 192.69, 342.56, 282.433]} repeatsPerHalf={wideCarousel ? 2 : 1} speed={carouselSpeed} />
+          <PhotoStrip stripId="middle" photos={landingPhotos.slice(6, 12)} widths={[192.69, 342.56, 342.56, 192.69, 282.433, 385.38]} repeatsPerHalf={wideCarousel ? 2 : 1} speed={carouselSpeed} />
         </div>
         <div className="landing-about" id="about">
           <div>
@@ -320,7 +333,7 @@ function LandingPage() {
           <Link className="button button-outline" href="/students">Learn More <ArrowUpRight size={12}/></Link>
           <img className="landing-about-planet" src="/assets/figma/landing/about-planet.png" alt="" />
         </div>
-        <PhotoStrip stripId="bottom" className="landing-bottom-strip" photos={landingPhotos.slice(8, 15)} widths={[342.56, 192.69, 342.56, 192.69, 342.56, 192.69, 342.56]} repeatsPerHalf={wideCarousel ? 2 : 1} />
+        <PhotoStrip stripId="bottom" className="landing-bottom-strip" photos={landingPhotos.slice(8, 15)} widths={[342.56, 192.69, 342.56, 192.69, 342.56, 192.69, 342.56]} repeatsPerHalf={wideCarousel ? 2 : 1} speed={carouselSpeed} />
       </section>
 
     <ProjectsPreview />
@@ -331,12 +344,12 @@ function LandingPage() {
   </AppShell>
 }
 
-function PhotoStrip({ photos, widths, stripId, repeatsPerHalf, className = '' }: { photos: LandingPhoto[]; widths: number[]; stripId: string; repeatsPerHalf: number; className?: string }) {
+function PhotoStrip({ photos, widths, stripId, repeatsPerHalf, speed = 1, className = '' }: { photos: LandingPhoto[]; widths: number[]; stripId: string; repeatsPerHalf: number; speed?: number; className?: string }) {
   // Two identical halves make the CSS loop seamless. Normal viewports only need
   // one photo set per half; ultra-wide viewports get a second set to prevent gaps.
   const half = Array.from({ length: repeatsPerHalf }, () => photos).flat()
   const sequence = [...half, ...half]
-  const duration = (stripId === 'middle' ? 22 : 19) * repeatsPerHalf
+  const duration = (stripId === 'middle' ? 22 : 19) * repeatsPerHalf * speed
   return <div className={`landing-carousel ${className}`} data-strip-id={stripId}>
     <div className="landing-photo-track" style={{ animationDuration: `${duration}s` }}>{sequence.map((photo, index) =>
       <picture key={`${photo.id}-${index}`} style={{ width: widths[index % widths.length] ?? 342.56 }}>

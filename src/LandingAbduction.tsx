@@ -120,9 +120,9 @@ export function LandingAbduction({ landingPageRef, heroUfoRef, photoRowsRef }: P
   const size = () => window.innerWidth <= 820 ? UFO_SIZE.mobile : UFO_SIZE.desktop
 
   const collectTracks = useCallback(() => {
-    const landing = landingPageRef.current
-    if (!landing) return []
-    return Array.from(landing.querySelectorAll<HTMLElement>('.landing-photo-track')).flatMap((track) => {
+    const rows = photoRowsRef.current
+    if (!rows) return []
+    return Array.from(rows.querySelectorAll<HTMLElement>('.landing-photo-track')).flatMap((track) => {
       const carousel = track.closest<HTMLElement>('.landing-carousel')
       const animation = track.getAnimations().find((item) => item.effect)
       if (!carousel || !animation) return []
@@ -131,7 +131,7 @@ export function LandingAbduction({ landingPageRef, heroUfoRef, photoRowsRef }: P
       const rate = Math.abs(animation.playbackRate) || 1
       return [{ animation, rate, carousel }]
     })
-  }, [landingPageRef])
+  }, [photoRowsRef])
 
   const restoreTarget = useCallback(() => {
     const snapshot = targetSnapshotRef.current
@@ -155,7 +155,7 @@ export function LandingAbduction({ landingPageRef, heroUfoRef, photoRowsRef }: P
 
   const restoreWatchRef = useRef(0)
   const cancelRestoreWatch = useCallback(() => {
-    cancelAnimationFrame(restoreWatchRef.current)
+    clearTimeout(restoreWatchRef.current)
     restoreWatchRef.current = 0
   }, [])
   const scheduleRestore = useCallback((token: number) => {
@@ -173,10 +173,10 @@ export function LandingAbduction({ landingPageRef, heroUfoRef, photoRowsRef }: P
         restoreTarget()
         return
       }
-      restoreWatchRef.current = requestAnimationFrame(check)
+      restoreWatchRef.current = window.setTimeout(check, 150)
     }
     cancelRestoreWatch()
-    restoreWatchRef.current = requestAnimationFrame(check)
+    restoreWatchRef.current = window.setTimeout(check, 150)
   }, [cancelRestoreWatch, restoreTarget])
 
   const normalizeTracks = useCallback(() => {
@@ -313,12 +313,12 @@ export function LandingAbduction({ landingPageRef, heroUfoRef, photoRowsRef }: P
     const liftX = destinationX - cloneCenterX
     const liftY = destinationY - cloneCenterY
     // Translate fractions match their offsets exactly (straight line, no overshoot);
-    // scale/rotate/brightness/opacity ride along as embellishment on top of that line.
+    // Scale, rotation, and opacity ride along as embellishment on top of that line.
     const lift = animateElement(clone, [
-      { transform: 'translate3d(0,0,0) rotate(0deg) scale(1)', filter: 'brightness(1)', opacity: 1 },
-      { transform: `translate3d(${liftX * .3}px,${liftY * .3}px,0) rotate(${mobile ? 1 : 2}deg) scale(.88)`, filter: 'brightness(1.08)', opacity: 1, offset: .3 },
-      { transform: `translate3d(${liftX * .68}px,${liftY * .68}px,0) rotate(${mobile ? 1 : 2}deg) scale(.56)`, filter: 'brightness(1.22)', opacity: 1, offset: .68 },
-      { transform: `translate3d(${liftX}px,${liftY}px,0) rotate(0deg) scale(.05)`, filter: 'brightness(1.6)', opacity: 0 },
+      { transform: 'translate3d(0,0,0) rotate(0deg) scale(1)', opacity: 1 },
+      { transform: `translate3d(${liftX * .3}px,${liftY * .3}px,0) rotate(${mobile ? 1 : 2}deg) scale(.88)`, opacity: 1, offset: .3 },
+      { transform: `translate3d(${liftX * .68}px,${liftY * .68}px,0) rotate(${mobile ? 1 : 2}deg) scale(.56)`, opacity: 1, offset: .68 },
+      { transform: `translate3d(${liftX}px,${liftY}px,0) rotate(0deg) scale(.05)`, opacity: 0 },
     ], { duration: mobile ? 1000 : 1400, easing: 'cubic-bezier(.5,0,.2,1)' }, ownedAnimationsRef.current)
     await lift.finished.catch(() => undefined)
     if (token !== tokenRef.current) return
@@ -465,7 +465,7 @@ export function LandingAbduction({ landingPageRef, heroUfoRef, photoRowsRef }: P
   if (phase === 'dormant') return null
   return <div ref={layerRef} className={`ufo-abduction-layer phase-${phase} is-visible`} aria-hidden="true">
     {targetRect && <div className={`ufo-contact-glow ${beamVisible ? 'is-on' : ''}`} style={{ left: targetRect.left, top: targetRect.top, width: targetRect.width, height: targetRect.height }} />}
-    {targetRect && <div className={`ufo-tractor-beam ${beamVisible ? 'is-on' : ''}`} style={{ left: beamLeft, top: beamTop, width: beamWidth, height: beamHeight }}>
+    {targetRect && <div className={`ufo-tractor-beam ${beamVisible ? 'is-on' : ''}`} style={{ left: beamLeft, top: beamTop, width: beamWidth, height: beamHeight, '--beam-travel': `${beamHeight}px` } as React.CSSProperties}>
       <span className="ufo-beam-core" />
       <span className="ufo-beam-ring ufo-beam-ring-one" />
       <span className="ufo-beam-ring ufo-beam-ring-two" />
