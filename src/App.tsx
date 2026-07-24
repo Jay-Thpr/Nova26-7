@@ -2,7 +2,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, Menu, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { LandingAbduction } from './LandingAbduction'
 import { useImagesLoaded } from './useImagesLoaded'
-import { GenericSkeleton } from './Skeletons'
+import { GenericSkeleton, LandingSkeleton, WorkSkeleton, AboutSkeleton, TeamSkeleton, NonprofitsSkeleton, StudentsSkeleton, ProjectDetailSkeleton } from './Skeletons'
 
 type Project = {
   slug: string
@@ -281,7 +281,7 @@ function LandingPage() {
     return () => observer.disconnect()
   }, [])
 
-  return <AppShell skeleton={<GenericSkeleton />}>
+  return <AppShell skeleton={<LandingSkeleton />}>
     <div className="landing-page" ref={landingPageRef}>
       <div className="landing-decor" aria-hidden="true">
         <img className="landing-decor-sparkles landing-decor-sparkles-top" src="/assets/figma/landing/sparkle-field.svg" alt="" />
@@ -393,7 +393,7 @@ function WorkPage() {
     { ...projects[2], displayName: 'Donation Allocation Portal', client: '@Center for Restorative Justice Works', image: '/assets/figma/work/crjw.png' },
   ]
 
-  return <AppShell skeleton={<GenericSkeleton />}>
+  return <AppShell skeleton={<WorkSkeleton />}>
     <div className="work-page" data-node-id="345:778">
       <span className="work-gradient-mesh work-gradient-mesh-top" aria-hidden="true"><img src="/assets/figma/work/gradient-mesh-4.png" alt="" /></span>
       <span className="work-gradient-mesh work-gradient-mesh-left" aria-hidden="true"><img src="/assets/figma/work/gradient-mesh-4.png" alt="" /></span>
@@ -467,7 +467,7 @@ function AboutPage() {
     [<>It’s this constant desire to learn and create that has brought together <strong>40+ committed members</strong> working year-round on projects to help nonprofits serve their communities more effectively.<br/><br/>We are a close-knit group of CS, design, and business students at UCLA, each actively participating in outreach, problem-solving, and development.</>, '/assets/figma/about/story-2.png'],
     [<>We strive to understand the reality of under-resourced communities by working closely with nonprofits. We represent an ambitious, fast-moving, and creative team aiming to make a lasting impact.<br/><br/>We believe that <strong>anyone</strong> can help bring change to the community. We are Nova.</>, '/assets/figma/about/story-3.png'],
   ]
-  return <AppShell skeleton={<GenericSkeleton />}><div className="about-page" data-node-id="494:113">
+  return <AppShell skeleton={<AboutSkeleton />}><div className="about-page" data-node-id="494:113">
     <div className="about-background" aria-hidden="true">
       <img className="about-background-mesh" src="/assets/figma/about/background.png" alt="" />
       <img className="about-constellation" src="/assets/figma/about/constellation.svg" alt="" />
@@ -491,7 +491,7 @@ function TeamMember({ member, index }: { member: string[]; index: number }) {
 }
 
 function TeamPage() {
-  return <AppShell skeleton={<GenericSkeleton />}><div className="team-page" data-node-id="494:987">
+  return <AppShell skeleton={<TeamSkeleton />}><div className="team-page" data-node-id="494:987">
     <div className="team-background" aria-hidden="true">
       <img className="team-bg-mesh" src="/assets/figma/team/gradient-mesh-top.png" alt="" />
       <img className="team-bg-halo team-bg-halo-middle" src="/assets/figma/team/gradient-halo-middle.png" alt="" />
@@ -518,7 +518,7 @@ function TeamPage() {
 }
 
 function NonprofitsPage() {
-  return <AppShell skeleton={<GenericSkeleton />}>
+  return <AppShell skeleton={<NonprofitsSkeleton />}>
     <div className="nonprofits-page" data-node-id="362:316">
     <div className="nonprofits-background" aria-hidden="true">
       <img className="nonprofits-bg-top" src="/assets/figma/nonprofits-exact/background-a.png" alt="" />
@@ -581,7 +581,7 @@ function StudentsPage() {
     '/assets/figma/students-exact/candidate-10.png',
   ]
 
-  return <AppShell skeleton={<GenericSkeleton />}>
+  return <AppShell skeleton={<StudentsSkeleton />}>
     <div className="students-page" data-node-id="514:2273">
     <div className="students-background" aria-hidden="true">
       <img className="students-mesh students-mesh-middle" src="/assets/figma/students/gradient-mesh-middle.png" alt="" />
@@ -614,7 +614,7 @@ function ProjectDetailPage({ project }: { project: Project }) {
   const projectIndex = projects.findIndex(item => item.slug === project.slug)
   const previous = projects[(projectIndex + projects.length - 1) % projects.length]
   const next = projects[(projectIndex + 1) % projects.length]
-  return <AppShell skeleton={<GenericSkeleton />}>
+  return <AppShell skeleton={<ProjectDetailSkeleton />}>
     <section className={`figma-detail-hero project-${project.slug}`} data-node-id={project.figmaNode}>
       <img className="detail-deco detail-star detail-star-left" src="/assets/figma/details/star2.png" alt="" />
       <img className="detail-deco detail-star detail-star-right" src="/assets/figma/details/star2.png" alt="" />
