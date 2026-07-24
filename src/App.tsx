@@ -142,9 +142,10 @@ const partnerLogos = [
   { name: 'Westside Food Bank', src: '/assets/figma/logos/wsfb.png' },
 ]
 const teamPhotos = ['/assets/team-1.png', '/assets/team-2.png', '/assets/team-3.png', '/assets/team-4.png']
-const teamPortraits = [
-  'cf067441fa93280a6744011b94854b72ad2519c0','611b9169a36c8f86adeb319f2f980943b0efc890','e116c36be3821871362acf3b75de80384d79ec0e','e9eb002287b21c75506b5b937e0d30be0a31558a','d9febe851a5ede0f87c96fccb1abb82716919f9c','00b5f7ca809ac7f6ab3ee5c78a244bac7aa31561','c1fa872c4238d5ba673e5af648616cbe6d176716','8569a03c361957c502f698152cce4a2fb7eb530d','ad3917c18ae10a200bc814d6e842ac15f472a879','853f692b4853250655930a7b9e03940ad3d5942c','8900b79e3b901a79787031a8d890d43bee4ce035','1b0f7b349c3a2bd6fac0d34d092514f42638cdb6','8054c18f13f416200798d3f19dafdda26c2ad4c6','cd3e8f5211b6f41b91b0eea3c74a10ae6ab5bd1d','f6e4446ba99998f1895141819dee0d66a2a3dce6','c5ccb20ceaa46f51f3dc315cba1f70b0428af725','946cdb9bbbcd70146a01a895827af7085ea0ace8','40e196b4946b8ab70f89c59cb59f707535b285e9','7b41fc4875668e1e2d04ca1cc3ff778536fccde0','cdc1b46c5a827edb608d12cf8a748eea62f2e729','0dd63cfd420cf5923ce16e24aca072a9d4d31b57','0aaeb2e5afa4279dd644061059a225a36f08522b','bd5d1c743d273f67bcb2317d2df6f35f6b308cdc','cb5e9dd45405af8c8726f5c4c6b55716c74a3f63','e76b4d350649659628892fc60c40246a8814016c','3646ac6e0a0a3967039c603533235f5e8b835906','47a35517dc29f4fe52d405c1ab7ba4b3e7f72d49','cc87af4b30c54c8e75c5adb1fd5ad42e8513f175','f682af4d14c6f25d38d4bcded598ec1b7eec588b','b86626db3f7a05ccf4bde9e738024ff716dcf6e9','053c5c9ea5b7fd3765f3a1328dc1f25274c78472','b9cbe478561a34f93e54be980b562b33f5f3a57c','15c64910f4aba320c30acb85564d77d168021f91','c3551cc34537be75565c02b4f6ba2448deeb7c08',
-].map(hash => `http://localhost:3845/assets/${hash}.png`)
+const teamPortraits = Array.from(
+  { length: 34 },
+  (_, index) => `/assets/figma/team/portraits/member-${String(index + 1).padStart(2, '0')}.png`,
+)
 type LandingPhoto = {
   id: string
   avifSrcSet: string
@@ -163,6 +164,10 @@ const landingPhotos: LandingPhoto[] = Array.from({ length: 15 }, (_, index) => {
   }
 })
 const landingPartners = Array.from({ length: 16 }, (_, index) => `/assets/figma/landing/partner-${index + 1}.png`)
+
+// When false, the hero UFO just idle-bobs in place instead of wandering the
+// hero and running the carousel abduction/sucking sequence.
+const UFO_MOTION_ENABLED = false
 
 function usePath() {
   const [path, setPath] = useState(window.location.pathname)
@@ -293,7 +298,7 @@ function LandingPage() {
       </div>
       <section className="landing-hero">
         <img className="landing-hero-star" src="/assets/figma/landing/hero-star.png" alt="" />
-        <div className="landing-ufo-flight" ref={heroUfoRef} aria-hidden="true"><img className="landing-ufo" src="/assets/figma/landing/max-ufo.svg" alt="" /></div>
+        <div className={`landing-ufo-flight${UFO_MOTION_ENABLED ? '' : ' ufo-bob-only'}`} ref={heroUfoRef} aria-hidden="true"><img className="landing-ufo" src="/assets/figma/landing/max-ufo.svg" alt="" /></div>
         <div className="landing-hero-copy">
           <img className="landing-wordmark" src="/assets/figma/landing/nova-wordmark.svg" alt="Nova" />
           <h1>Tech for Good</h1>
@@ -321,7 +326,7 @@ function LandingPage() {
     <ProjectsPreview />
     <NetworkSection />
     <CtaSection />
-    <LandingAbduction landingPageRef={landingPageRef} heroUfoRef={heroUfoRef} photoRowsRef={photoRowsRef} />
+    {UFO_MOTION_ENABLED && <LandingAbduction landingPageRef={landingPageRef} heroUfoRef={heroUfoRef} photoRowsRef={photoRowsRef} />}
     </div>
   </AppShell>
 }
