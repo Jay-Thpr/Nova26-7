@@ -1,6 +1,8 @@
 import { ArrowLeft, ArrowRight, ArrowUpRight, Menu, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { LandingAbduction } from './LandingAbduction'
+import { useImagesLoaded } from './useImagesLoaded'
+import { GenericSkeleton } from './Skeletons'
 
 type Project = {
   slug: string
@@ -143,7 +145,23 @@ const teamPhotos = ['/assets/team-1.png', '/assets/team-2.png', '/assets/team-3.
 const teamPortraits = [
   'cf067441fa93280a6744011b94854b72ad2519c0','611b9169a36c8f86adeb319f2f980943b0efc890','e116c36be3821871362acf3b75de80384d79ec0e','e9eb002287b21c75506b5b937e0d30be0a31558a','d9febe851a5ede0f87c96fccb1abb82716919f9c','00b5f7ca809ac7f6ab3ee5c78a244bac7aa31561','c1fa872c4238d5ba673e5af648616cbe6d176716','8569a03c361957c502f698152cce4a2fb7eb530d','ad3917c18ae10a200bc814d6e842ac15f472a879','853f692b4853250655930a7b9e03940ad3d5942c','8900b79e3b901a79787031a8d890d43bee4ce035','1b0f7b349c3a2bd6fac0d34d092514f42638cdb6','8054c18f13f416200798d3f19dafdda26c2ad4c6','cd3e8f5211b6f41b91b0eea3c74a10ae6ab5bd1d','f6e4446ba99998f1895141819dee0d66a2a3dce6','c5ccb20ceaa46f51f3dc315cba1f70b0428af725','946cdb9bbbcd70146a01a895827af7085ea0ace8','40e196b4946b8ab70f89c59cb59f707535b285e9','7b41fc4875668e1e2d04ca1cc3ff778536fccde0','cdc1b46c5a827edb608d12cf8a748eea62f2e729','0dd63cfd420cf5923ce16e24aca072a9d4d31b57','0aaeb2e5afa4279dd644061059a225a36f08522b','bd5d1c743d273f67bcb2317d2df6f35f6b308cdc','cb5e9dd45405af8c8726f5c4c6b55716c74a3f63','e76b4d350649659628892fc60c40246a8814016c','3646ac6e0a0a3967039c603533235f5e8b835906','47a35517dc29f4fe52d405c1ab7ba4b3e7f72d49','cc87af4b30c54c8e75c5adb1fd5ad42e8513f175','f682af4d14c6f25d38d4bcded598ec1b7eec588b','b86626db3f7a05ccf4bde9e738024ff716dcf6e9','053c5c9ea5b7fd3765f3a1328dc1f25274c78472','b9cbe478561a34f93e54be980b562b33f5f3a57c','15c64910f4aba320c30acb85564d77d168021f91','c3551cc34537be75565c02b4f6ba2448deeb7c08',
 ].map(hash => `http://localhost:3845/assets/${hash}.png`)
-const landingPhotos = Array.from({ length: 15 }, (_, index) => `/assets/figma/landing/photo-${index + 1}.png`)
+type LandingPhoto = {
+  id: string
+  avifSrcSet: string
+  jpegSrc: string
+  jpegSrcSet: string
+}
+
+const landingPhotos: LandingPhoto[] = Array.from({ length: 15 }, (_, index) => {
+  const id = `photo-${index + 1}`
+  const base = `/assets/figma/landing/${id}`
+  return {
+    id,
+    avifSrcSet: `${base}-640.avif 640w, ${base}-1280.avif 1280w`,
+    jpegSrc: `${base}-1280.jpg`,
+    jpegSrcSet: `${base}-640.jpg 640w, ${base}-1280.jpg 1280w`,
+  }
+})
 const landingPartners = Array.from({ length: 16 }, (_, index) => `/assets/figma/landing/partner-${index + 1}.png`)
 
 function usePath() {
@@ -228,10 +246,13 @@ function Footer() {
   </footer>
 }
 
-function AppShell({ children }: { children: React.ReactNode }) {
+function AppShell({ children, skeleton }: { children: React.ReactNode; skeleton: React.ReactNode }) {
+  const contentRef = useRef<HTMLDivElement>(null)
+  const loaded = useImagesLoaded(contentRef)
   return <main id="top">
     <Header />
-    {children}
+    {!loaded && <div className="page-skeleton" aria-hidden="true">{skeleton}</div>}
+    <div className={`page-content${loaded ? ' page-content-visible' : ''}`} ref={contentRef}>{children}</div>
     <Footer />
   </main>
 }
@@ -240,8 +261,27 @@ function LandingPage() {
   const landingPageRef = useRef<HTMLDivElement>(null)
   const heroUfoRef = useRef<HTMLDivElement>(null)
   const photoRowsRef = useRef<HTMLDivElement>(null)
+  const [wideCarousel, setWideCarousel] = useState(() => window.matchMedia('(min-width:1800px)').matches)
 
-  return <AppShell>
+  useEffect(() => {
+    const media = window.matchMedia('(min-width:1800px)')
+    const update = () => setWideCarousel(media.matches)
+    media.addEventListener('change', update)
+    return () => media.removeEventListener('change', update)
+  }, [])
+
+  useEffect(() => {
+    const landing = landingPageRef.current
+    if (!landing) return
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => entry.target.classList.toggle('is-offscreen', !entry.isIntersecting))
+    }, { rootMargin: '240px 0px' })
+    const carousels = landing.querySelectorAll('.landing-carousel')
+    carousels.forEach((carousel) => observer.observe(carousel))
+    return () => observer.disconnect()
+  }, [])
+
+  return <AppShell skeleton={<GenericSkeleton />}>
     <div className="landing-page" ref={landingPageRef}>
       <div className="landing-decor" aria-hidden="true">
         <img className="landing-decor-sparkles landing-decor-sparkles-top" src="/assets/figma/landing/sparkle-field.svg" alt="" />
@@ -264,8 +304,8 @@ function LandingPage() {
 
       <section className="landing-gallery" id="team" aria-label="Nova team photos">
         <div className="landing-photo-rows" ref={photoRowsRef}>
-          <PhotoStrip stripId="top" photos={landingPhotos.slice(0, 6)} widths={[342.56, 282.433, 385.38, 192.69, 342.56, 282.433]} />
-          <PhotoStrip stripId="middle" photos={landingPhotos.slice(6, 12)} widths={[192.69, 342.56, 342.56, 192.69, 282.433, 385.38]} />
+          <PhotoStrip stripId="top" photos={landingPhotos.slice(0, 6)} widths={[342.56, 282.433, 385.38, 192.69, 342.56, 282.433]} repeatsPerHalf={wideCarousel ? 2 : 1} />
+          <PhotoStrip stripId="middle" photos={landingPhotos.slice(6, 12)} widths={[192.69, 342.56, 342.56, 192.69, 282.433, 385.38]} repeatsPerHalf={wideCarousel ? 2 : 1} />
         </div>
         <div className="landing-about" id="about">
           <div>
@@ -275,7 +315,7 @@ function LandingPage() {
           <Link className="button button-outline" href="/students">Learn More <ArrowUpRight size={12}/></Link>
           <img className="landing-about-planet" src="/assets/figma/landing/about-planet.png" alt="" />
         </div>
-        <PhotoStrip stripId="bottom" className="landing-bottom-strip" photos={landingPhotos.slice(8, 15)} widths={[342.56, 192.69, 342.56, 192.69, 342.56, 192.69, 342.56]} />
+        <PhotoStrip stripId="bottom" className="landing-bottom-strip" photos={landingPhotos.slice(8, 15)} widths={[342.56, 192.69, 342.56, 192.69, 342.56, 192.69, 342.56]} repeatsPerHalf={wideCarousel ? 2 : 1} />
       </section>
 
     <ProjectsPreview />
@@ -286,13 +326,28 @@ function LandingPage() {
   </AppShell>
 }
 
-function PhotoStrip({ photos, widths, stripId, className = '' }: { photos: string[]; widths: number[]; stripId: string; className?: string }) {
-  // Keep each half of the animated track wider than large desktop viewports so
-  // the carousel never reveals empty space while it loops.
-  const loop = [...photos, ...photos]
-  const sequence = [...loop, ...loop]
+function PhotoStrip({ photos, widths, stripId, repeatsPerHalf, className = '' }: { photos: LandingPhoto[]; widths: number[]; stripId: string; repeatsPerHalf: number; className?: string }) {
+  // Two identical halves make the CSS loop seamless. Normal viewports only need
+  // one photo set per half; ultra-wide viewports get a second set to prevent gaps.
+  const half = Array.from({ length: repeatsPerHalf }, () => photos).flat()
+  const sequence = [...half, ...half]
+  const duration = (stripId === 'middle' ? 22 : 19) * repeatsPerHalf
   return <div className={`landing-carousel ${className}`} data-strip-id={stripId}>
-    <div className="landing-photo-track">{sequence.map((src, index) => <img key={`${src}-${index}`} src={src} data-photo-id={src} data-copy-index={Math.floor(index / photos.length)} data-logical-index={index % photos.length} style={{ width: widths[index % widths.length] ?? 342.56 }} alt={index < photos.length ? 'Nova team' : ''} />)}</div>
+    <div className="landing-photo-track" style={{ animationDuration: `${duration}s` }}>{sequence.map((photo, index) =>
+      <picture key={`${photo.id}-${index}`} style={{ width: widths[index % widths.length] ?? 342.56 }}>
+        <source type="image/avif" srcSet={photo.avifSrcSet} sizes={`${Math.ceil(widths[index % widths.length] ?? 342.56)}px`} />
+        <img
+          src={photo.jpegSrc}
+          srcSet={photo.jpegSrcSet}
+          sizes={`${Math.ceil(widths[index % widths.length] ?? 342.56)}px`}
+          data-photo-id={photo.id}
+          data-copy-index={Math.floor(index / photos.length)}
+          data-logical-index={index % photos.length}
+          loading={stripId === 'bottom' || index >= photos.length ? 'lazy' : 'eager'}
+          decoding="async"
+          alt={index < photos.length ? 'Nova team' : ''}
+        />
+      </picture>)}</div>
   </div>
 }
 
@@ -338,7 +393,7 @@ function WorkPage() {
     { ...projects[2], displayName: 'Donation Allocation Portal', client: '@Center for Restorative Justice Works', image: '/assets/figma/work/crjw.png' },
   ]
 
-  return <AppShell>
+  return <AppShell skeleton={<GenericSkeleton />}>
     <div className="work-page" data-node-id="345:778">
       <span className="work-gradient-mesh work-gradient-mesh-top" aria-hidden="true"><img src="/assets/figma/work/gradient-mesh-4.png" alt="" /></span>
       <span className="work-gradient-mesh work-gradient-mesh-left" aria-hidden="true"><img src="/assets/figma/work/gradient-mesh-4.png" alt="" /></span>
@@ -412,7 +467,7 @@ function AboutPage() {
     [<>It’s this constant desire to learn and create that has brought together <strong>40+ committed members</strong> working year-round on projects to help nonprofits serve their communities more effectively.<br/><br/>We are a close-knit group of CS, design, and business students at UCLA, each actively participating in outreach, problem-solving, and development.</>, '/assets/figma/about/story-2.png'],
     [<>We strive to understand the reality of under-resourced communities by working closely with nonprofits. We represent an ambitious, fast-moving, and creative team aiming to make a lasting impact.<br/><br/>We believe that <strong>anyone</strong> can help bring change to the community. We are Nova.</>, '/assets/figma/about/story-3.png'],
   ]
-  return <AppShell><div className="about-page" data-node-id="494:113">
+  return <AppShell skeleton={<GenericSkeleton />}><div className="about-page" data-node-id="494:113">
     <div className="about-background" aria-hidden="true">
       <img className="about-background-mesh" src="/assets/figma/about/background.png" alt="" />
       <img className="about-constellation" src="/assets/figma/about/constellation.svg" alt="" />
@@ -436,7 +491,7 @@ function TeamMember({ member, index }: { member: string[]; index: number }) {
 }
 
 function TeamPage() {
-  return <AppShell><div className="team-page" data-node-id="494:987">
+  return <AppShell skeleton={<GenericSkeleton />}><div className="team-page" data-node-id="494:987">
     <div className="team-background" aria-hidden="true">
       <img className="team-bg-mesh" src="/assets/figma/team/gradient-mesh-top.png" alt="" />
       <img className="team-bg-halo team-bg-halo-middle" src="/assets/figma/team/gradient-halo-middle.png" alt="" />
@@ -463,7 +518,7 @@ function TeamPage() {
 }
 
 function NonprofitsPage() {
-  return <AppShell>
+  return <AppShell skeleton={<GenericSkeleton />}>
     <div className="nonprofits-page" data-node-id="362:316">
     <div className="nonprofits-background" aria-hidden="true">
       <img className="nonprofits-bg-top" src="/assets/figma/nonprofits-exact/background-a.png" alt="" />
@@ -526,7 +581,7 @@ function StudentsPage() {
     '/assets/figma/students-exact/candidate-10.png',
   ]
 
-  return <AppShell>
+  return <AppShell skeleton={<GenericSkeleton />}>
     <div className="students-page" data-node-id="514:2273">
     <div className="students-background" aria-hidden="true">
       <img className="students-mesh students-mesh-middle" src="/assets/figma/students/gradient-mesh-middle.png" alt="" />
@@ -559,7 +614,7 @@ function ProjectDetailPage({ project }: { project: Project }) {
   const projectIndex = projects.findIndex(item => item.slug === project.slug)
   const previous = projects[(projectIndex + projects.length - 1) % projects.length]
   const next = projects[(projectIndex + 1) % projects.length]
-  return <AppShell>
+  return <AppShell skeleton={<GenericSkeleton />}>
     <section className={`figma-detail-hero project-${project.slug}`} data-node-id={project.figmaNode}>
       <img className="detail-deco detail-star detail-star-left" src="/assets/figma/details/star2.png" alt="" />
       <img className="detail-deco detail-star detail-star-right" src="/assets/figma/details/star2.png" alt="" />
@@ -631,7 +686,7 @@ function ProjectDetailPage({ project }: { project: Project }) {
 }
 
 function NotFoundPage() {
-  return <AppShell><section className="page-hero"><h1>Page not found</h1><p>This route is not implemented yet.</p><Link className="button button-solid" href="/">Back home</Link></section></AppShell>
+  return <AppShell skeleton={<GenericSkeleton />}><section className="page-hero"><h1>Page not found</h1><p>This route is not implemented yet.</p><Link className="button button-solid" href="/">Back home</Link></section></AppShell>
 }
 
 function App() {
@@ -639,14 +694,17 @@ function App() {
   const normalizedPath = path.replace(/\/$/, '') || '/'
   const project = projects.find(item => normalizedPath === `/work/${item.slug}`)
 
-  if (normalizedPath === '/') return <LandingPage />
-  if (normalizedPath === '/about') return <AboutPage />
-  if (normalizedPath === '/team') return <TeamPage />
-  if (normalizedPath === '/work') return <WorkPage />
-  if (normalizedPath === '/nonprofits') return <NonprofitsPage />
-  if (normalizedPath === '/students') return <StudentsPage />
-  if (project) return <ProjectDetailPage project={project} />
-  return <NotFoundPage />
+  let page: React.ReactNode
+  if (normalizedPath === '/') page = <LandingPage />
+  else if (normalizedPath === '/about') page = <AboutPage />
+  else if (normalizedPath === '/team') page = <TeamPage />
+  else if (normalizedPath === '/work') page = <WorkPage />
+  else if (normalizedPath === '/nonprofits') page = <NonprofitsPage />
+  else if (normalizedPath === '/students') page = <StudentsPage />
+  else if (project) page = <ProjectDetailPage project={project} />
+  else page = <NotFoundPage />
+
+  return <div key={normalizedPath}>{page}</div>
 }
 
 export default App
