@@ -1197,8 +1197,8 @@ footer { height:172px; padding:35px max(56px,calc((100% - 1168px)/2)); display:g
   .landing-wordmark { width:min(756px,90vw); height:auto; }
   .landing-hero-copy h1 { width:auto; font-size:clamp(28px,7vw,64px); line-height:1; }
   .landing-hero-copy p { width:min(395px,90vw); margin-top:56px; }
-  .landing-hero-star { width:220px; height:auto; top:190px; left:-70px; }
-  .landing-ufo-flight { top:196px; right:8px; left:auto; width:96px; height:90px; }
+  .landing-hero-star { width:220px; height:auto; top:290px; left:-95px; }
+  .landing-ufo-flight { top:285px; right:-40px; left:auto; width:96px; height:90px; }
   .ufo-abduction-ship { width:92px; height:86px; }
   .ufo-tractor-beam { filter:drop-shadow(0 0 8px rgba(116,182,255,.72)); }
   .ufo-beam-ring-three { display:none; }
